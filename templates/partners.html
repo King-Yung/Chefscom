@@ -1,0 +1,138 @@
+{% load static %}
+{% include 'header.html' %}
+
+<html>
+<head>
+    <title>Partners | chefs.com.ng</title>
+
+<style>
+            /* HERO SECTION */
+.needhome {
+    position: relative;
+    height: 120vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    z-index: 1;
+    margin-top: -5rem !important;
+    padding-top: 0;
+}
+
+.needhome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("{% static 'pictures/faq.png' %}") center center / cover no-repeat;
+    opacity: 1;
+    z-index: -1;
+}
+
+.needhome .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 0;
+}
+
+.needhome .home-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.bg-home h5 {
+    color: #fff !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 1px 2px 6px rgba(0,0,0,0.7);
+}
+
+.bg-home h1 {
+    color: #fff !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-shadow: 2px 3px 10px rgba(0,0,0,0.8);
+    margin-top: 0.8rem;
+}
+
+.bg-home {
+    animation: fadeInHero 1.2s ease-in-out;
+}
+
+@keyframes fadeInHero {
+    from { opacity: 0; transform: scale(1.03); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bgZoom {
+  0% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+    </style>
+</head>
+
+
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+    
+   
+     <!-- Hero Section -->
+  <section class="bg-home needhome">
+    <div class="bg-overlay"></div>
+    <div class="home-center d-flex align-items-center">
+      <div class="container contain text-center text-white fade-in">
+        <h5 class="small-title text-uppercase mb-3 hh5 slide-up">Meet our partners </h5>
+        <h1 class="heading fw-bold mb-4 hh1 slide-up delay">Bringing professionalism through Excellence</h1>
+      </div>
+    </div>
+  </section>
+    <!-- end home -->
+
+        <div class="container">
+            <div class="row align-items-center">  
+                <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2 text-center">
+                    <img src="{% static 'pictures/clients/CJA-LOGO.jpg' %}" height="100" alt="">
+                </div><!--end col-->
+                <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2 text-center">
+                    <img src="{% static 'pictures/clients/Havocentre-logo.png' %}" height="100" alt="">
+                </div><!--end col-->
+                <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2 text-center">
+                    <img src="{% static 'pictures/clients/hasotel-Logo.jpg' %}" height="120" alt="">
+                </div><!--end col-->
+                <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2 text-center">
+                    <img src="{% static 'pictures/clients/APCN.png' %}" height="100" alt="">
+                </div><!--end col-->
+                <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2 text-center">
+                    <img src="{% static 'pictures/clients/Doms-Delight-Logo.jpeg' %}" height="100" alt="">
+                </div><!--end col-->
+                <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2 text-center">
+                    <img src="{% static 'pictures/clients/peniel-logo.jpg' %}" height="100" alt="">
+                </div><!--end col-->
+            </div>
+        </div>
+
+    {% include 'footer.html' %}
+</body>
+
+<!-- Mirrored from themesdesign.in/jobya/components.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Oct 2025 19:06:27 GMT -->
+</html>

@@ -1,0 +1,328 @@
+{% load static %}
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chefs Hub | chefs.com.ng</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/chef_hu.css' %}">
+
+  <style>
+            /* HERO SECTION */
+.needhome {
+    position: relative;
+    height: 120vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    z-index: 1;
+    margin-top: -5rem !important;
+    padding-top: 0;
+}
+
+.needhome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("{% static 'pictures/chefs-hub.png' %}") center center / cover no-repeat;
+    opacity: 1;
+    z-index: -1;
+}
+
+.needhome .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 0;
+}
+
+.needhome .home-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.bg-home h5 {
+    color: #fff !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 15rem !important;
+    text-shadow: 1px 2px 6px rgba(0,0,0,0.7);
+}
+
+.bg-home h1 {
+    color: #fff !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-shadow: 2px 3px 10px rgba(0,0,0,0.8);
+    margin-top: 0.8rem;
+}
+
+.bg-home {
+    animation: fadeInHero 1.2s ease-in-out;
+}
+
+
+
+@keyframes fadeInHero {
+    from { opacity: 0; transform: scale(1.03); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bgZoom {
+  0% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.hh5{
+    text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.hh1{
+    text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.8);
+}
+    </style>
+</head>
+<body>
+  
+  <!-- Loader -->
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Loader -->
+
+  
+
+  <!-- Hero Section -->
+  <section class="bg-home needhome">
+    <div class="bg-overlay"></div>
+    <div class="home-center d-flex flex-column align-items-center justify-content-center">
+      <div class="container contain text-center text-white fade-in">
+        <h5 class="small-title text-uppercase mb-3 hh5 slide-up">Looking for a professional CHEF!</h5>
+        <h1 class="heading fw-bold mb-4 hh1 slide-up delay">Awesome! Let’s bring you closer to your desired culinary experience.</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approved Candidates Section -->
+  <section class="chef-hub py-5">
+    <div class="container">
+      <h1 class="text-center mb-5 fw-bold">Professional Chefs</h1>
+
+      {% if candidates %}
+      <div class="row g-4">
+        {% for candidate in candidates %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100 candidate-card">
+            <div class="card-body ">
+            
+            {% if candidate.user and candidate.user.chefprofile and candidate.user.chefprofile.profile_picture %}
+              <img 
+                src="{{ candidate.user.chefprofile.profile_picture.url }}" 
+                alt="{{ user.username }}" 
+                class="rounded-circle" 
+                width="80" height="80"
+  
+              >
+            {% else %}
+              <img 
+                src="{% static 'pictures/profile.png' %}" 
+                alt="Default" 
+                class="rounded-circle" 
+                width="80" height="80"
+              >
+            {% endif %}
+          
+              <h5 class="card-title fw-bold text-primary">{{ candidate.full_name }}</h5>
+              <p class="mb-1"><strong>Gender:</strong> {{ candidate.gender }}</p>
+              <p class="mb-1"><strong>Experience:</strong> {{ candidate.years_experience }} years</p>
+
+              <p class="mb-1">
+                <strong>Specialty:</strong>
+                {% if candidate.specialty == "other" %}
+                  {{ candidate.specialty_other }}
+                {% else %}
+                  {{ candidate.specialty }}
+                {% endif %}
+              </p>
+
+              <p class="mb-1">
+                <strong>Preferred Establishment:</strong>
+                {% if candidate.establishment_preference == "other" %}
+                  {{ candidate.establishment_other }}
+                {% else %}
+                  {{ candidate.establishment_preference }}
+                {% endif %}
+              </p>
+
+              <p class="mb-1"><strong>Additional Skills:</strong> {{ candidate.additional_skills|default:"N/A" }}</p>
+              <p class="mb-1"><strong>Contract Term:</strong> {{ candidate.contract_term }}</p>
+
+              <button class="btn btn-primary engage-btn" data-type="candidate" data-id="{{ candidate.id }}">Engage</button>
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+        
+      </div>
+      {% else %}
+      <div class="alert alert-info text-center">
+        No approved candidates at the moment.
+      </div>
+      {% endif %}
+
+      
+      
+    </div>
+  </section>
+
+  <!-- Approved CV Submissions Section -->
+  <section class="chef-hub py-5 bg-light">
+    <div class="container">
+      <h1 class="text-center mb-5 fw-bold">CV Submissions</h1>
+
+      {% if cv_submissions %}
+      <div class="row g-4">
+        {% for cv in cv_submissions %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100 candidate-card">
+
+            <div class="card shadow-sm h-100 candidate-card">
+            <div class="card-body">
+              {% if cv.user and cv.user.chefprofile and cv.user.chefprofile.profile_picture %}
+                <img src="{{ cv.user.chefprofile.profile_picture.url }}" 
+                    alt="{{ cv.full_name }}" 
+                    class="rounded-circle mb-3" 
+                    width="100" height="100">
+              {% else %}
+                <img src="{% static 'pictures/profile.png' %}" 
+                    alt="Default Avatar" 
+                    class="rounded-circle mb-3" 
+                    width="100" height="100">
+              {% endif %}
+              <h5 class="card-title fw-bold text-primary">{{ cv.full_name }}</h5>
+              <p class="mb-1"><strong>Gender:</strong> {{ cv.gender }}</p>
+              <p class="mb-1"><strong>Experience:</strong> {{ cv.experience_years }} years</p>
+
+              <p class="mb-1">
+                <strong>Specialty:</strong>
+                {% if cv.expertise == "other" %}
+                  {{ cv.expertise_other }}
+                {% else %}
+                  {{ cv.expertise }}
+                {% endif %}
+              </p>
+
+              <p class="mb-1">
+                <strong>Preferred Establishment:</strong>
+                {% if cv.establishment == "other" %}
+                  {{ cv.establishment_other }}
+                {% else %}
+                  {{ cv.establishment }}
+                {% endif %}
+              </p>
+
+              <p class="mb-1"><strong>Additional Skills:</strong> {{ cv.skills|default:"N/A" }}</p>
+              <p class="mb-1"><strong>Contract Term:</strong> {{ cv.contract }}</p>
+
+              <button class="btn btn-primary engage-btn" data-type="cv" data-id="{{ cv.id }}">Engage</button>
+
+            </div>
+          </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-info text-center">
+        No approved CV submissions at the moment.
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  {% include 'footer.html' %}
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const isEmployer = {{ is_employer|yesno:"true,false" }};
+  const csrfToken = "{{ csrf_token }}";
+
+  document.querySelectorAll(".engage-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      if (!isEmployer) {
+        alert("❌ Only employers can engage candidates. Please log in as an employer.");
+        return;
+      }
+
+      const type = this.getAttribute("data-type");
+      const id = this.getAttribute("data-id");
+
+      if (!id || !type) {
+        alert("⚠️ Missing candidate or CV ID.");
+        return;
+      }
+
+      if (!confirm(`Engage this ${type === "cv" ? "CV submission" : "candidate"} for a job?`)) return;
+
+      const payload = {
+        message: "We’d like to engage you for a job opportunity."
+      };
+
+      if (type === "candidate") payload.candidate_id = id;
+      if (type === "cv") payload.cv_id = id;
+
+      fetch("{% url 'engage_candidate' %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrfToken,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("✅ " + data.message);
+          button.textContent = "Engaged";
+          button.classList.remove("btn-primary");
+          button.classList.add("btn-success");
+          button.disabled = true;
+        } else {
+          alert("⚠️ " + data.message);
+        }
+      })
+      .catch(error => {
+        console.error("❌ Error engaging candidate:", error);
+        alert("❌ Something went wrong while engaging this candidate.");
+      });
+    });
+  });
+});
+</script>
+
+
+
+</body>
+</html>

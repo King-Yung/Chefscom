@@ -1,0 +1,218 @@
+{% load static %}
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclaimer | chefs.com.ng</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+
+            /* HERO SECTION */
+.needhome {
+    position: relative;
+    height: 150vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    z-index: 1;
+    margin-top: -5rem !important;
+    padding-top: 0;
+}
+
+.needhome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("{% static 'pictures/disclaimer.png' %}") center center / cover no-repeat;
+    opacity: 1;
+    z-index: -1;
+}
+
+.needhome .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 0;
+}
+
+.needhome .home-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.bg-home h5 {
+    color: #fff !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    
+    text-shadow: 1px 2px 6px rgba(0,0,0,0.7);
+}
+
+.bg-home h1 {
+    color: #fff !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-top: 15rem !important;
+    text-shadow: 2px 3px 10px rgba(0,0,0,0.8);
+    margin-top: 0.8rem;
+}
+
+.bg-home {
+    animation: fadeInHero 1.2s ease-in-out;
+}
+
+@keyframes fadeInHero {
+    from { opacity: 0; transform: scale(1.03); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bgZoom {
+  0% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+    
+    .disclaimer-container {
+      max-width: 950px;
+      margin: 80px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 40px;
+    }
+
+    .disclaimer-container h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      color: #182848;
+      margin-bottom: 1rem;
+    }
+
+    .disclaimer-container h2 {
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      color: #007bff;
+      font-weight: 600;
+    }
+
+    .disclaimer-container p {
+      margin-bottom: 1rem;
+    }
+
+    ul.disclaimer-list {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    ul.disclaimer-list li {
+      margin-bottom: 8px;
+    }
+
+    .date-info {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .disclaimer-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+     <!-- Loader -->
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Loader -->
+
+  <!-- Hero Section -->
+  <section class="bg-home needhome">
+    <div class="bg-overlay"></div>
+    <div class="home-center d-flex align-items-center">
+      <div class="container contain text-center text-white fade-in">
+        
+        <h1 class="heading fw-bold mb-4 hh1 slide-up delay">Website Disclaimer</h1>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="disclaimer-container">
+    <h1></h1>
+    <p class="date-info">
+      Effective Date: <strong>18.10.2025</strong>
+    </p>
+
+    <p><strong>Chefs.com.ng / Chef James & Associates Nigeria Limited (CJA) Recruitment Agency</strong> provides this website and its content for general informational purposes only. While we strive to keep all information accurate, up-to-date, and reliable, CJA makes no representations or warranties of any kind — express or implied — about the completeness, accuracy, reliability, suitability, or availability of any content, services, or related graphics contained on this website.</p>
+
+    <h2>1. PROFESSIONAL SERVICES DISCLAIMER</h2>
+    <p>CJA operates strictly as a recruitment intermediary and talent representation agency. We:</p>
+    <ul class="disclaimer-list">
+      <li>Connect chefs, cooks, and culinary professionals with verified employers and hospitality clients.</li>
+      <li>Do not guarantee job offers, salaries, or employment duration.</li>
+      <li>Are not responsible for employment contracts, work conditions, or payments agreed directly between employers and candidates.</li>
+    </ul>
+    <p>All recruitment arrangements are subject to verification and mutual agreement between both parties.</p>
+
+    <h2>2. EXTERNAL LINKS AND THIRD-PARTY WEBSITES</h2>
+    <p>Our website may contain links to other websites or partner organizations. These are provided solely for your convenience. CJA has no control over the nature, content, or availability of those sites and assumes no responsibility for them. Inclusion of external links does not imply endorsement of the views or services offered.</p>
+
+    <h2>3. WEBSITE AVAILABILITY</h2>
+    <p>We make every effort to ensure our website runs smoothly. However, CJA does not take responsibility for temporary unavailability due to technical issues beyond our control.</p>
+
+    <h2>4. NO GUARANTEE OF RESULTS</h2>
+    <p>While we aim to connect the best culinary talents with rewarding opportunities, CJA does not guarantee placement, success in applications, or specific client outcomes. Job listings and opportunities are subject to employer needs, candidate suitability, and other market factors.</p>
+
+    <h2>5. INTELLECTUAL PROPERTY</h2>
+    <p>All materials on this website — including text, images, branding, and design — are the intellectual property of <strong>Chefs.com.ng / Chef James & Associates Nigeria Limited (CJA)</strong>.</p>
+    <ul class="disclaimer-list">
+      <li>Reproduction, redistribution, or commercial use without written permission is strictly prohibited.</li>
+    </ul>
+
+    <h2>6. LIMITATION OF LIABILITY</h2>
+    <p>Under no circumstances shall CJA, its affiliates, or representatives be liable for:</p>
+    <ul class="disclaimer-list">
+      <li>Any loss, injury, claim, or damage arising out of your use of the website or its content.</li>
+      <li>Errors, omissions, or delays in website content.</li>
+      <li>Actions taken or decisions made based on website information.</li>
+    </ul>
+    <p>Your use of this website signifies your understanding and acceptance of this disclaimer.</p>
+
+    <h2>7. UPDATES TO THIS DISCLAIMER</h2>
+    <p>We may revise or update this Disclaimer periodically. The most current version will always be available on our website. Continued use of our services constitutes acceptance of any modifications.</p>
+
+    <h2>8. CONTACT INFORMATION</h2>
+    <p><strong>Chef James & Associates Nigeria Limited (CJA)</strong><br>
+    Email: <a href="mailto:hr@chefs.com.ng">hr@chefs.com.ng</a></p>
+
+    <hr>
+    <p><strong>Notice:</strong> By using our website, you acknowledge that you have read and understood this Website Disclaimer and agree to its terms.</p>
+  </div>
+
+  {% include 'footer.html' %}
+</body>
+</html>

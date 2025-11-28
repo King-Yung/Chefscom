@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+{% if pending_candidates %}
+  <table class="table">
+    <tr>
+      <th>Full Name</th>
+      <th>Specialty</th>
+      <th>Years of Experience</th>
+    </tr>
+    {% for c in pending_candidates %}
+    <tr>
+      <td>{{ c.full_name }}</td>
+      <td>{{ c.specialty }}</td>
+      <td>{{ c.years_experience }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>No pending candidates 🎉</p>
+{% endif %}
+{% endblock %}

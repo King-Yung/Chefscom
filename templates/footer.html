@@ -1,0 +1,228 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+</head>
+
+<style>
+.cookie-banner {
+  animation: slideUp 0.8s ease-in-out;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+@keyframes slideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+</style>
+
+<!-- 🍪 PRIVACY & COOKIES NOTICE BANNER -->
+<div id="cookie-banner" class="cookie-banner shadow-lg p-4 rounded position-fixed bottom-0 start-50 translate-middle-x bg-dark text-white d-none"
+     style="z-index: 3000; width: 100%; max-width: 1000px;">
+  <div class="cookie-content">
+    <h5 class="fw-bold text-warning mb-2">Privacy & Cookies Notice</h5>
+    <p class="small mb-2">
+      At <strong>Chefs.com.ng</strong>, we value your privacy and are committed to protecting your personal information.
+      We collect only the data needed to connect chefs, employers, and hospitality clients for recruitment, representation, or placement services.
+      All information shared with us — including CVs, contact details, and business information — is stored securely and used responsibly,
+      in full compliance with the <strong>Nigeria Data Protection Act (NDPA 2023)</strong>.
+    </p>
+    <p class="small mb-2">
+      By continuing to browse this site, you agree to our use of cookies to improve your browsing experience and understand how our website is used.
+      Some cookies are essential for site performance, while others help personalize your experience and deliver better culinary recruitment services.
+    </p>
+    <p class="small mb-3">
+      Read our full <a href="{% url 'privacy_policy' %}" class="text-info text-decoration-underline">Privacy Policy</a> for more details.
+    </p>
+    <div class="d-flex flex-wrap justify-content-end gap-2">
+      <button id="learn-more" class="btn btn-outline-light btn-sm">Learn More</button>
+      <button id="reject-cookies" class="btn btn-danger btn-sm">Reject Non-Essential</button>
+      <button id="accept-cookies" class="btn btn-success btn-sm">Accept All</button>
+    </div>
+  </div>
+</div>
+
+<!-- footer start -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2"> 
+                    <a href="{% url 'home' %}" ><img src="{% static 'pictures/logomain.png' %}" height="50" alt="" style="margin-top: 1rem; margin-bottom: 1rem;"></a>
+                    <p class="mt-0">We connect passionate culinary professionals with trusted employers across Africa — transforming kitchen skills into lasting careers.</p>
+                    <ul class="social-icon social list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-whatsapp"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.facebook.com/share/1CaUVf2e4z/" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-youtube"></i></a></li>
+                        <li class="list-inline-item"><a href="https://x.com/chefjamesaa2l?s=21" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.instagram.com/chef._com.ng?igsh=MTIwanl2NTA3dWNuZg==" class="rounded"><i class="mdi mdi-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="mailto:info@chefs.com.ng" class="rounded"><i class="mdi mdi-email"></i></a></li>
+                    </ul>
+
+                    <a href="{% url 'home' %}" ><img src="{% static 'pictures/logosub.jpg' %}" height="100" alt="" style="margin-top: 1rem; margin-bottom: 1rem;"></a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <p class="text-white mb-4 footer-list-title">Services</p>
+                    <ul class="list-unstyled footer-list">
+                        <li><a href="#" class="text-foot">Home</a></li>
+                        <li><a href="{% url 'need_job' %}" class="text-foot"> I Need A Job</a></li>
+                        <li><a href="{% url 'need_staff' %}" class="text-foot"> I Need A Chef</a></li>
+                        <li><a href="{% url 'relief_chef' %}" class="text-foot">Find Relief Chef</a></li>
+                        <li><a href="{% url 'permanent_chef' %}" class="text-foot">Find Permanent Chef</a></li>
+                        <li><a href="{% url 'private_chef' %}" class="text-foot">Find Private Chef</a></li>
+                        <li><a href="{% url 'culinary_agents' %}" class="text-foot">Culinary Agent</a></li>
+                        <li><a href="{% url 'job_vacancies' %}" class="text-foot">Employers Hub</a></li>
+                        <li><a href="{% url 'chefs_hub' %}" class="text-foot">Chefs Hub</a></li>
+                        <li><a href="{% url 'subscription_page' %}" class="text-foot">Subscribe</a></li>
+
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}" class="text-foot">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}" class="text-foot">Login</a></li>
+                            <li><a href="{% url 'signup' %}" class="text-foot">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <p class="text-white mb-4 footer-list-title">Links</p>
+                    <ul class="list-unstyled footer-list">
+                        
+                        <li><a href="{% url 'faq' %}" class="text-foot">FAQs</a></li>
+                        <li><a href="{% url 'partners' %}" class="text-foot">Partners</a></li>
+                        <li><a href="{% url 'event_news' %}" class="text-foot">Event & News</a></li>
+                        <li><a href="{% url 'disclaimer' %}" class="text-foot">Disclaimer</a></li>
+                        <li><a href="{% url 'terms_condition' %}" class="text-foot">Terms and Conditions</a></li>
+                        <li><a href="{% url 'privacy_policy' %}" class="text-foot">Privacy Policies</a></li>
+                        <li><a href="{% url 'about' %}" class="text-foot">About us</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-foot">Contact us</a></li>
+                        <li><a href="{% url 'submit_job' %}" class="text-foot">Post Jobs Free</a></li>
+                        <li><a href="{% url 'submit_cv' %}" class="text-foot">Looking for a Job?</a></li>
+                        <li><a href="{% url 'job_vacancies' %}" class="text-foot">View all Vacancies</a></li>
+                       
+                    </ul>
+                </div>
+            
+                <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                    <p class="text-white mb-4 footer-list-title f-17">Business Hours</p>
+                    <ul class="list-unstyled text-foot mt-4 mb-0">
+                        <li>Monday - Friday : 8am to 5pm</li>
+                        <li class="mt-2 mb-5">Saturday  : 10:30am to 12:30pm</li>
+                    </ul>
+
+                    <!-- Newsletter Section -->
+                    <p class="text-white mb-3 footer-list-title f-17 news">Subscribe to our Newsletter</p>
+                    <form method="post" action="{% url 'subscribe_newsletter' %}" class="newsletter-form">
+                        {% csrf_token %}
+                        
+                        <!-- Email Input Field -->
+                        <div class="mb-3">
+                            <input 
+                                type="email" 
+                                name="email" 
+                                class="form-control rounded" 
+                                placeholder="Enter your email" 
+                                required
+                            >
+                        </div>
+
+                        <!-- Subscribe Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-4 rounded">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</footer>
+    <!-- footer end -->
+    <hr>
+    <footer class="footer footer-bar">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="">
+                        <p class="mb-0">© 2025 | chefs.com</p>
+                    </div>
+                </div>
+            </div>
+        </div><!--end container-->
+    </footer><!--end footer-->
+    <!-- Footer End -->
+
+    <!-- Back to top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top" style="
+    position: fixed;
+    left: 20px;       /* Move to left */
+    bottom: 20px;     /* Keep it at bottom */
+    width: 40px;
+    height: 40px;
+    background: #007bff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+">
+    <i class="mdi mdi-chevron-up d-block"></i>
+</a>
+
+    <!-- Back to top -->
+
+    
+    <!-- javascript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    
+
+    <!-- selectize js -->
+    <script src="{% static 'js/selectize.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/counter.int.js' %}"></script>
+
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("accept-cookies");
+  const rejectBtn = document.getElementById("reject-cookies");
+  const learnMoreBtn = document.getElementById("learn-more");
+
+  const cookieConsent = localStorage.getItem("cookieConsent");
+
+  // Show banner if no consent stored
+  if (!cookieConsent) {
+    banner.classList.remove("d-none");
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    localStorage.setItem("cookieConsent", "accepted");
+    banner.classList.add("d-none");
+  });
+
+  rejectBtn.addEventListener("click", function () {
+    localStorage.setItem("cookieConsent", "rejected");
+    banner.classList.add("d-none");
+  });
+
+  learnMoreBtn.addEventListener("click", function () {
+    window.location.href = "{% url 'privacy_policy' %}";
+  });
+});
+</script>
+
+    {% if messages %}
+        <script>
+        {% for message in messages %}
+            alert("{{ message|escapejs }}");
+        {% endfor %}
+        </script>
+        {% endif %}
+
+    <!-- Place this just before closing </body> -->
+    
+

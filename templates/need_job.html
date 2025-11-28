@@ -1,0 +1,387 @@
+{% load static %}
+{% include 'header.html' %}
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>I Need a Job | chefs.com.ng</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/needjob.css' %}">
+
+  <style>
+    /* Make all labels bold and italic */
+  .form-label,
+  .form-check-label {
+    font-weight: bold !important;
+    font-style: italic !important;
+    
+  }
+
+  span{
+        color: red !important;
+      }
+
+  .caph5{
+    font-size: 0.9rem;
+    color: red;
+  }
+  </style>
+</head>
+<body>
+   <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+
+
+<section class="bg-home needhome" >
+  <div class="bg-overlay"></div>
+  <div class="home-center d-flex align-items-center">
+    <div class="container contain text-center text-white">
+      <h5 class="small-title text-uppercase mb-3">I'm a Chef, I Need a Job!</h5>
+      <h1 class="heading fw-bold mb-4">Great! Let’s bridge the gap and connect you to a rewarding career in the culinary and hospitality industry.</h1>
+    </div>
+  </div>
+</section>
+
+<div class="container my-5">
+    <h6>Please complete the simple registration form below to be registered in our database and also receive available Job notifications.</h6>
+</div>
+
+<div class="container my-5">
+  <h3>Candidate Registration Form</h3>
+  <p class="lead">Please complete all the fields and ensure you attach your CV.</p>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+      {% if messages %}
+        {% for m in messages %}
+          <div class="alert alert-{{ m.tags }}">{{ m }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="row g-3">
+
+          <!-- Personal Information -->
+           <div class="col-12"><h5>Personal Information</h5></div>
+          <div class="col-md-6">
+            <label class="form-label" >Full Name <span>*</span></label>
+            {{ form.full_name }}
+            {% for error in form.full_name.errors %}
+              <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Gender <span>*</span></label>
+            {{ form.gender }}
+            {% for error in form.gender.errors %}
+              <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Date of Birth <span>*</span></label>
+            {{ form.date_of_birth }}
+            {% for error in form.date_of_birth.errors %}
+              <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-4 fone">
+            <label class="form-label">Phone Number (WhatsApp preferred) <span>*</span></label>
+            {{ form.phone }}
+            {% for error in form.phone.errors %}
+              <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Email Address <span>*</span></label>
+            {{ form.email }}
+            {% for error in form.email.errors %}
+              <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Residential Address <span>*</span></label>
+            {{ form.residential_address }}
+            {% for error in form.residential_address.errors %}
+              <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="col-md-4">
+            <label id="nationality" class="form-label">Nationality <span>*</span></label>
+            {{ form.nationality }}
+        </div>
+
+        <div class="col-md-4">
+            <label id="state" class="form-label">State of Residence <span>*</span></label>
+            {{ form.state_of_residence }}
+        </div>
+
+          
+
+          <!-- Professional Details -->
+           <div class="col-12"><h5>Professional Details</h5></div>
+          <div class="col-md-6">
+            <label class="form-label">Current Employment Status <span>*</span></label>
+            {{ form.current_employment_status }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Current/Last Job Title</label>
+            {{ form.current_last_job_title }}
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Years of Culinary Experience <span>*</span></label>
+            {{ form.years_experience }}
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Specialty/Area of Expertise <span>*</span></label>
+            {{ form.specialty }}
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">If other Specialty, specify</label>
+            {{ form.specialty_other }}
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Type of Establishment You Prefer <span>*</span></label>
+            {{ form.establishment_preference }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">If other Establishment specify</label>
+            {{ form.establishment_other }}
+          </div>
+
+          <!-- Preferred Locations -->
+          <div class="col-12">
+            <label class="form-label">Preferred Work Location(s) <span>*</span></label>
+            <div class="d-flex flex-wrap">
+              {% for checkbox in form.preferred_locations %}
+                <div class="form-check me-3">
+                  {{ checkbox.tag }}
+                  <label class="form-check-label">{{ checkbox.choice_label }}</label>
+                </div>
+              {% endfor %}
+            </div>
+            <label class="form-label">If other Location, specify</label>
+            {{ form.preferred_location_other }}
+          </div>
+
+          <!-- Education & Training -->
+           <div class="col-12"><h5>Education & Training</h5></div>
+          <div class="col-md-6">
+            <label class="form-label">Highest Qualification <span>*</span></label>
+            {{ form.highest_qualification }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Culinary School / Certification <span>*</span></label>
+            {{ form.culinary_school }}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Additional Skills / Training <span>*</span></label>
+            {{ form.additional_skills }}
+          </div>
+
+          <!-- Work History -->
+          <div class="col-12"><h5>Work History</h5></div>
+          <div class="col-md-6">
+            <label class="form-label">Last Employer <span>*</span></label>
+            {{ form.last_employer }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Position Held <span>*</span></label>
+            {{ form.last_position }}
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Start Date <span>*</span></label>
+            {{ form.start_date }}
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">End Date <span>*</span></label>
+            {{ form.end_date }}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Key Responsibilities <span>*</span></label>
+            {{ form.key_responsibilities }}
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Contract Term <span>*</span></label>
+            {{ form.contract_term }}
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label">Upload CV / Resume (PDF or Word) <span>*</span></label>
+            {{ form.cv }}
+          </div>
+
+          <!-- Reference -->
+          <div class="col-12"><h5>Reference</h5></div>
+          <div class="col-md-4">
+            <label class="form-label">Referee Name <span>*</span></label>
+            {{ form.referee_name }}
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Relationship <span>*</span></label>
+            {{ form.referee_relationship }}
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Phone / Email <span>*</span></label>
+            {{ form.referee_contact }}
+          </div>
+
+          <!-- Job Alerts -->
+          <div class="col-12"><h5>Job Alerts & Notifications <span>*</span></h5></div>
+          <div class="form-check form-check-inline">
+            {{ form.alert_email }} <label class="form-check-label ms-1">Email</label>
+          </div>
+          <div class="form-check form-check-inline">
+            {{ form.alert_whatsapp }} <label class="form-check-label ms-1">WhatsApp</label>
+          </div>
+          <div class="form-check form-check-inline">
+            {{ form.alert_sms }} <label class="form-check-label ms-1">SMS</label>
+          </div>
+
+          <div class="col-12 mt-3">
+            <label class="form-label">Message (optional)</label>
+            {{ form.message }}
+          </div>
+
+          <!-- ========================= -->
+          <!-- Exclusive Job Opportunities Section -->
+          <!-- ========================= -->
+        <div class="col-12 mt-4">
+          <div class="border rounded p-3 bg-light">
+            <h5 class="text-primary mb-3">
+              🌟 Exclusive High-Paying Job Opportunities (Optional)
+            </h5>
+            <p>
+              Would you like to receive <strong>priority notifications</strong> for exclusive, high-paying chef job placements?
+            </p>
+
+            {{ form.preferred_job_types }}
+
+            <div class="mt-3">
+              <p>
+                By selecting, you agree to our <a href="#" class="text-decoration-underline">terms and conditions</a> and consent to be contacted for premium opportunities.
+              </p>
+              <p class="small text-muted">
+                🔒 <strong>Privacy Notice:</strong> Your personal information will remain confidential and shared only with verified employers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- reCAPTCHA -->
+        <div class="mb-3">
+            {{ form.captcha }}
+            {% if form.captcha.errors %}
+                <div class="text-danger small caph5">You must complete the CAPTCHA to continue.</div>
+            {% else %}
+                <h5 class="caph5">You must complete the <b>CAPTCHA</b> to continue.</h5>
+            {% endif %}
+        </div>
+
+
+          <!-- Submit Button -->
+          <div class="col-12 text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Submit Registration</button>
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- ================== INTERNATIONAL TELEPHONE INPUT ================== -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // ====== Phone input setup ======
+    const phoneInput = document.querySelector(".fone input");
+    if (phoneInput) {
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "ng",
+            separateDialCode: true,
+            preferredCountries: ["ng", "gh", "us", "gb", "ca"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+        });
+
+        const form = phoneInput.closest("form");
+        if (form) {
+            form.addEventListener("submit", function () {
+                phoneInput.value = iti.getNumber();
+            });
+        }
+    }
+
+    // ====== Dynamic state loading ======
+    const countrySelect = document.querySelector("#id_nationality"); // Django's field ID
+    const stateSelect = document.querySelector("#id_state_of_residence"); // Django's field ID
+
+    if (countrySelect && stateSelect) {
+        countrySelect.addEventListener("change", function () {
+            const countryId = this.value;
+            if (!countryId) {
+                stateSelect.innerHTML = "<option value=''>Select state</option>";
+                return;
+            }
+
+            fetch(`/candidates/load_states/?country_id=${countryId}`)
+                .then(response => response.json())
+                .then(states => {
+                    stateSelect.innerHTML = "<option value=''>Select state</option>"; // reset
+                    states.forEach(s => {
+                        const option = new Option(s.name, s.id);
+                        stateSelect.append(option);
+                    });
+                })
+                .catch(err => {
+                    console.error("Error fetching states:", err);
+                    stateSelect.innerHTML = "<option value=''>Error loading states</option>";
+                });
+        });
+
+        // Optional: trigger change if country is preselected (for edit forms)
+        if (countrySelect.value) {
+            const event = new Event('change');
+            countrySelect.dispatchEvent(event);
+        }
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

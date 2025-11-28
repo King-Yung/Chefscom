@@ -1,0 +1,292 @@
+{% load static %}
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | chefs.com.ng</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    
+           /* HERO SECTION */
+.needhome {
+    position: relative;
+    height: 150vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    z-index: 1;
+    margin-top: -5rem !important;
+    padding-top: 0;
+}
+
+.needhome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("{% static 'pictures/privacy.png' %}") center center / cover no-repeat;
+    opacity: 1;
+    z-index: -1;
+}
+
+.needhome .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 0;
+}
+
+.needhome .home-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.bg-home h5 {
+    color: #fff !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 15rem;
+    text-shadow: 1px 2px 6px rgba(0,0,0,0.7);
+}
+
+.bg-home h1 {
+    color: #fff !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-shadow: 2px 3px 10px rgba(0,0,0,0.8);
+    margin-top: 0.8rem;
+}
+
+.bg-home {
+    animation: fadeInHero 1.2s ease-in-out;
+}
+
+@keyframes fadeInHero {
+    from { opacity: 0; transform: scale(1.03); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bgZoom {
+  0% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+    .privacy-container {
+      max-width: 950px;
+      margin: 80px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 40px;
+    }
+
+    .privacy-container h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      color: #182848;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-container h2 {
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      color: #007bff;
+      font-weight: 600;
+    }
+
+    .privacy-container p {
+      margin-bottom: 1rem;
+    }
+
+    ul.privacy-list {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    ul.privacy-list li {
+      margin-bottom: 8px;
+    }
+
+    .date-info {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .privacy-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+     <!-- Loader -->
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Loader -->
+
+  <!-- Hero Section -->
+  <section class="bg-home needhome">
+    <div class="bg-overlay"></div>
+    <div class="home-center d-flex align-items-center">
+      <div class="container contain text-center text-white fade-in">
+        <h5 class="small-title text-uppercase mb-3 hh5 slide-up">Privacy Policy</h5>
+        <h1 class="heading fw-bold mb-4 hh1 slide-up delay">Get to know our Privacy and Policy</h1>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="privacy-container">
+    <p class="date-info">
+      Effective Date: <strong>18.10.2025</strong> &nbsp; | &nbsp;
+      Last Updated: <strong>18.10.2025</strong>
+    </p>
+
+    <p><strong>Chefs.com.ng / Chef James & Associates Nigeria Limited (CJA) Recruitment Agency</strong> (“CJA,” “we,” “our,” or “us”) values your privacy and is committed to protecting your personal information.</p>
+
+    <p>This Privacy Policy explains how we collect, use, store, share, and protect your data when you use our website or any of our recruitment, consultancy, or training services. By accessing or using our website, you consent to the practices described in this Privacy Policy.</p>
+
+    <h2>1. WHO WE ARE</h2>
+    <p>Chefs.com.ng / Chef James & Associates Nigeria Limited (CJA) Recruitment Agency is a hospitality-focused human resources and recruitment firm that connects qualified professionals with reputable employers across Nigeria and internationally. We operate under ethical recruitment standards and respect your right to privacy.</p>
+
+    <h2>2. INFORMATION WE COLLECT</h2>
+
+    <p><strong>A. Information You Provide Directly</strong></p>
+    <ul class="privacy-list">
+      <li>Full name, gender, and contact details (phone number, email, address)</li>
+      <li>Curriculum Vitae (CV), employment history, and educational background</li>
+      <li>Professional certifications and references</li>
+      <li>National Identification Number (NIN), passport details (for international placements)</li>
+      <li>Employer or business details (for client accounts)</li>
+      <li>Payment information for service transactions</li>
+    </ul>
+
+    <p><strong>B. Information Collected Automatically</strong></p>
+    <ul class="privacy-list">
+      <li>IP address and browser type</li>
+      <li>Device information and operating system</li>
+      <li>Pages visited and time spent on our website</li>
+      <li>Cookies and analytics data to enhance user experience</li>
+    </ul>
+
+    <p><strong>C. Information from Third Parties</strong></p>
+    <ul class="privacy-list">
+      <li>Public job boards or professional networking platforms (e.g., LinkedIn)</li>
+      <li>Partner recruitment agencies</li>
+      <li>Referees or verification bodies</li>
+    </ul>
+
+    <h2>3. HOW WE USE YOUR INFORMATION</h2>
+    <ul class="privacy-list">
+      <li>Recruitment & Job Matching: To assess your suitability for job opportunities and share your profile with potential employers.</li>
+      <li>Client Service Delivery: To fulfill recruitment, outsourcing, or consultancy contracts with clients.</li>
+      <li>Communication: To respond to inquiries, provide updates, or send service-related notifications.</li>
+      <li>Legal Compliance: To verify identity, prevent fraud, and comply with labor and immigration laws.</li>
+      <li>Improvement of Services: To analyze website usage trends and improve recruitment processes.</li>
+      <li>Marketing Communications (optional): With your consent, we may send newsletters or offers. You can unsubscribe anytime.</li>
+    </ul>
+
+    <h2>4. LEGAL BASIS FOR PROCESSING DATA</h2>
+    <ul class="privacy-list">
+      <li>Your consent through registration or submission of details.</li>
+      <li>Contractual necessity for recruitment or service delivery.</li>
+      <li>Legitimate interest for business and fraud prevention.</li>
+      <li>Legal obligation when required by authorities.</li>
+    </ul>
+
+    <h2>5. DATA SHARING AND DISCLOSURE</h2>
+    <ul class="privacy-list">
+      <li>Employers or Clients seeking candidates for open positions.</li>
+      <li>Background check and verification agencies.</li>
+      <li>Service providers (IT support, hosting, payment processors).</li>
+      <li>Regulatory or law enforcement agencies, if required by law.</li>
+    </ul>
+    <p>We do not sell, rent, or trade your personal information for marketing purposes.</p>
+
+    <h2>6. DATA RETENTION</h2>
+    <ul class="privacy-list">
+      <li>Data retained as long as necessary for recruitment or contractual obligations.</li>
+      <li>For up to five (5) years after your last interaction unless law requires longer.</li>
+      <li>You may request deletion via Section 11.</li>
+    </ul>
+
+    <h2>7. DATA SECURITY</h2>
+    <ul class="privacy-list">
+      <li>Encrypted data transmission (SSL)</li>
+      <li>Secure servers and access control</li>
+      <li>Regular system audits and restricted data access</li>
+      <li>Staff confidentiality agreements and data protection training</li>
+    </ul>
+    <p>However, no system is completely secure, and online data transmission carries inherent risks.</p>
+
+    <h2>8. YOUR RIGHTS</h2>
+    <ul class="privacy-list">
+      <li>Access your personal data held by CJA</li>
+      <li>Request correction of inaccurate information</li>
+      <li>Withdraw consent for data processing</li>
+      <li>Request deletion (“right to be forgotten”)</li>
+      <li>Object to data processing for marketing</li>
+      <li>Request data portability</li>
+    </ul>
+
+    <h2>9. COOKIES AND ANALYTICS POLICY</h2>
+    <p>We use cookies to enhance user experience, remember preferences, analyze traffic, and collect analytics data. You may disable cookies in your browser, but some site features may not work properly.</p>
+
+    <ul class="privacy-list">
+      <li>Monitor page performance and traffic.</li>
+      <li>Improve navigation and service quality.</li>
+      <li>Customize user experience.</li>
+    </ul>
+
+    <h2>10. THIRD-PARTY LINKS</h2>
+    <p>Our site may contain links to third-party platforms. CJA is not responsible for their content or privacy practices. We advise reviewing their policies before sharing personal data.</p>
+
+    <h2>11. DATA CONTROLLER & CONTACT INFORMATION</h2>
+    <p>
+      <strong>Chef James & Associates Nigeria Limited (CJA) Recruitment Agency</strong><br>
+      Data Protection Officer (DPO): <strong>Ayegba Ikeh</strong><br>
+      Email: 
+      <a href="mailto:recruit@chefs.com.ng">recruit@chefs.com.ng</a> | 
+      <a href="mailto:verify@chefs.com.ng">verify@chefs.com.ng</a> | 
+      <a href="mailto:hr@chefs.com.ng">hr@chefs.com.ng</a><br>
+      Phone: <a href="tel:+2340909993490">+2340909993490</a><br>
+      Office: Suite 2007, Anbeez Plaza, Zone 5, Wuse, Abuja.<br>
+      Website: <a href="https://www.chefs.com.ng">www.chefs.com.ng</a>
+    </p>
+
+    <h2>12. INTERNATIONAL DATA TRANSFER</h2>
+    <p>Your data may be transferred internationally where necessary for recruitment. CJA ensures compliance with NDPR and GDPR standards in all such cases.</p>
+
+    <h2>13. POLICY UPDATES</h2>
+    <p>We may update this policy periodically. Updates will be posted on our website with the latest date indicated. Continued use of our services signifies acceptance of these changes.</p>
+
+    <h2>14. CONSENT</h2>
+    <p>By using our website or submitting your data, you confirm that you have read, understood, and agreed to this Privacy Policy.</p>
+  </div>
+
+  {% include 'footer.html' %}
+</body>
+</html>

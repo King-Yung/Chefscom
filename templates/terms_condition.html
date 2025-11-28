@@ -1,0 +1,299 @@
+{% load static %}
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions | chefs.com.ng</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    
+
+        /* HERO SECTION */
+.needhome {
+    position: relative;
+    height: 150vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    z-index: 1;
+    margin-top: -5rem !important;
+    padding-top: 0;
+}
+
+.needhome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("{% static 'pictures/terms-condition.png' %}") center center / cover no-repeat;
+    opacity: 1;
+    z-index: -1;
+}
+
+.needhome .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 0;
+}
+
+.needhome .home-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.bg-home h5 {
+    color: #fff !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 15rem;
+    text-shadow: 1px 2px 6px rgba(0,0,0,0.7);
+}
+
+.bg-home h1 {
+    color: #fff !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-shadow: 2px 3px 10px rgba(0,0,0,0.8);
+    margin-top: 0.8rem;
+}
+
+.bg-home {
+    animation: fadeInHero 1.2s ease-in-out;
+}
+
+@keyframes fadeInHero {
+    from { opacity: 0; transform: scale(1.03); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bgZoom {
+  0% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+    .terms-container {
+      background: #fff;
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      max-width: 1000px;
+      margin: 3rem auto;
+    }
+    h1, h2 {
+      font-weight: 700;
+      color: #182848;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      border-left: 4px solid #007bff;
+      padding-left: 10px;
+    }
+    .uli {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .uli li::before {
+      content: "• ";
+      color: #007bff;
+      font-weight: bold;
+    }
+    .meta {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .divider {
+      border-top: 1px solid #ddd;
+      margin: 1.5rem 0;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 3rem;
+    }
+
+    .uli2 li::before{
+        list-style-type: none;
+        content: none;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+     <!-- Loader -->
+  <div id="preloader">
+    <div id="status">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Loader -->
+
+  <!-- Hero Section -->
+  <section class="bg-home needhome">
+    <div class="bg-overlay"></div>
+    <div class="home-center d-flex align-items-center">
+      <div class="container contain text-center text-white fade-in">
+        <h5 class="small-title text-uppercase mb-3 hh5 slide-up">Terms and Conditions of Use </h5>
+        <h1 class="heading fw-bold mb-4 hh1 slide-up delay">Chefs.com.ng/Chef James & Associates Nigeria Limited (CJA) Recruitment Agency</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="terms-container">
+      
+      <div class="meta">
+        <em>Effective Date:</em> 18.10.2025 | <em>Last Updated:</em> 18.10.2025
+      </div>
+
+      <p>
+        Welcome to <strong>Chefs.com.ng / Chef James & Associates Nigeria Limited (CJA)</strong> — a professional recruitment
+        and talent representation agency specializing in hospitality and culinary staffing across Nigeria and Africa
+        (“the Site”). These Terms and Conditions (“Terms”) govern your access to and use of our online services,
+        including job listings, recruitment support, consultancy, and other resources provided by
+        <strong>Chef James & Associates (CJA)</strong>.
+      </p>
+      <p>By accessing or using this Site, you agree to comply with these Terms. If you do not agree, please refrain from using our services.</p>
+
+      <div class="divider"></div>
+      <h2>1. DEFINITIONS</h2>
+      <ul class="uli uli2">
+        <li><strong>User / You:</strong> Any individual, job seeker, employer, or organization accessing the CJA website.</li>
+        <li><strong>Candidate:</strong> A job seeker or hospitality professional applying for recruitment assistance through the Site.</li>
+        <li><strong>Client / Employer:</strong> Any business or organization seeking recruitment or consultancy services from CJA.</li>
+        <li><strong>Services:</strong> Recruitment, job matching, training, consultancy, and hospitality HR support.</li>
+        <li><strong>Account:</strong> A registered user profile on the CJA platform.</li>
+      </ul>
+
+      <h2>2. ACCEPTANCE OF TERMS</h2>
+      <p>
+        By using the Site, you confirm that:
+      </p>
+      <ul class="uli">
+        <li>You are at least 18 years old and capable of entering into a legally binding contract.</li>
+        <li>All information you provide is truthful, accurate, and complete.</li>
+        <li>You will comply with all applicable laws and regulations related to recruitment and data protection.</li>
+      </ul>
+      <p>
+        CJA reserves the right to update or revise these Terms at any time. Continued use after changes indicates your acceptance.
+      </p>
+
+      <h2>3. SCOPE OF SERVICE</h2>
+      <p>CJA provides the following services:</p>
+      <ul class="uli">
+        <li>Hospitality and Culinary Job Placements</li>
+        <li>Human Resource Consultancy</li>
+        <li>Employer Branding & Recruitment Outsourcing</li>
+      </ul>
+      <p>CJA acts as an intermediary and does not guarantee employment.</p>
+
+      <h2>4. USER OBLIGATIONS</h2>
+      <ul class="uli">
+        <li>Use the Site solely for lawful purposes.</li>
+        <li>Provide accurate data during registration or submissions.</li>
+        <li>Do not upload fraudulent, misleading, or offensive content.</li>
+        <li>Do not attempt to hack, copy, or misuse any CJA data or content.</li>
+      </ul>
+
+      <h2>5. CANDIDATE TERMS</h2>
+      <ul class="uli">
+        <li>Chefs.com.ng/CJA is not the employer of record; hiring is done by verified employers.</li>
+        <li>CJA may verify credentials, IDs, or references before recommendations.</li>
+        <li>Data sharing with employers is done in line with our Privacy Policy.</li>
+        <li>No registration or placement fee is charged unless explicitly stated in writing.</li>
+      </ul>
+
+      <h2>6. CLIENT (EMPLOYER) TERMS</h2>
+      <ul class="uli">
+        <li>Employers must provide accurate job details and payment terms.</li>
+        <li>CJA may charge agreed fees via a Service Agreement.</li>
+        <li>Bypassing CJA to hire introduced candidates within 12 months incurs a breach fee (one month’s salary).</li>
+        <li>Employers are responsible for contracts, visas, or relocations.</li>
+      </ul>
+
+      <h2>7. FEES AND PAYMENTS</h2>
+      <ul class="uli">
+        <li>All fees are quoted in Naira (₦) unless stated otherwise.</li>
+        <li>Payment terms are specified in Service Agreements or Invoices.</li>
+        <li>Failure to pay may lead to service suspension.</li>
+      </ul>
+
+      <h2>8. CONFIDENTIALITY AND DATA PROTECTION</h2>
+      <ul class="uli">
+        <li>CJA treats all data as confidential and uses it only for recruitment purposes.</li>
+        <li>Users must also respect confidentiality of platform information.</li>
+        <li>All data is managed in compliance with the <strong>Nigeria Data Protection Act (NDPA) 2023</strong>.</li>
+      </ul>
+
+      <h2>9. INTELLECTUAL PROPERTY RIGHTS</h2>
+      <p>
+        All materials on this Site (logos, content, databases, trademarks) are the exclusive property of Chefs.com.ng / Chef James & Associates Nigeria Limited.  
+        Users may not copy or distribute without written consent.
+      </p>
+
+      <h2>10. LIMITATION OF LIABILITY</h2>
+      <p>CJA shall not be liable for:</p>
+      <ul class="uli">
+        <li>Loss of employment opportunities or profits.</li>
+        <li>Inaccurate job information from third-party employers.</li>
+        <li>Delays due to connectivity or maintenance.</li>
+      </ul>
+      <p>Our liability shall not exceed the amount paid for the service rendered.</p>
+
+      <h2>11. INDEMNITY</h2>
+      <p>Users agree to indemnify and hold CJA harmless from any claims, damages, or losses arising from misuse of the Site or breach of Terms.</p>
+
+      <h2>12. TERMINATION</h2>
+      <ul class="uli">
+        <li>CJA may suspend or terminate accounts due to fraudulent or illegal activity.</li>
+        <li>Users may terminate accounts by written request.</li>
+      </ul>
+
+      <h2>13. GOVERNING LAW AND JURISDICTION</h2>
+      <p>
+        These Terms are governed by the Laws of the Federal Republic of Nigeria.
+        Disputes shall be resolved in the courts of Abuja, Nigeria.
+      </p>
+
+      <h2>14. CONTACT INFORMATION</h2>
+      <address>
+        <strong>Chef James & Associates (CJA) Recruitment Agency</strong><br>
+        Email: <a href="mailto:recruit@chefs.com.ng">recruit@chefs.com.ng</a><br>
+        Phone: <a href="tel:+234000009999">+234000009999</a><br>
+        Address: Suite 2007, Anbeez Plaza, Zone 5, Wuse, Nigeria.<br>
+        Website: <a href="https://www.chefs.com.ng" target="_blank">www.chefs.com.ng</a>
+      </address>
+
+      
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,376 @@
+{% load static %}
+{% include 'header.html' %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Job Vacancy | chefs.com.ng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #0d1b2a00, #1e3b8a00);
+      color: #0d1b2a;
+    }
+
+    .needhome {
+        position: relative;
+        height: 150vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        color: #fff;
+        z-index: 1; /* create stacking context */
+        }
+
+        /* background image */
+        .needhome::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("{% static 'pictures/Submit-Job-Vacancy.png' %}") center center / cover no-repeat;
+        opacity: 100%;          /* controls brightness */
+        z-index: -1;           /* make sure it’s behind content */
+        }
+
+    
+        /* overlay tint */
+    .needhome .bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 0;
+    }
+
+    /* text container */
+    .needhome .home-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    }
+
+
+    /* Headings — bright and readable */
+    .bg-home h5 {
+    color: #fff !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .bg-home h1 {
+    color: #fff !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.8);
+    margin-top: 0.8rem;
+    }
+
+    /* Subtle fade-in animation */
+    .bg-home {
+    animation: fadeInHero 1.2s ease-in-out;
+    }
+
+    @keyframes fadeInHero {
+    from {
+        opacity: 0;
+        transform: scale(1.03);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+    }
+
+    .form-section {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      margin-top: 40px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    h4 {
+      color: #002855;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    .caph5 {
+      font-size: 0.9rem;
+      color: red;
+    }
+
+    .btnsub {
+      align-items: center !important;
+      align-content: center !important;
+    }
+
+    span {
+      color: red !important;
+    }
+
+    /* ===== Custom dropdown arrow ===== */
+    select.form-select, 
+    select.form-control {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23002855' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1rem;
+      padding-right: 2rem;
+      cursor: pointer;
+    }
+
+    select.form-select:focus {
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.2);
+    }
+
+    
+  </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+
+    <section class="bg-home needhome">
+  <div class="bg-overlay"></div>
+  <div class="home-center d-flex align-items-center">
+    <div class="container contain text-center text-white">
+      <h5 class="small-title text-uppercase mb-3">For Employers </h5>
+      <h1 class="heading fw-bold mb-4">
+        Post Your Chef & Hospitality Vacancies.
+      </h1>
+    </div>
+  </div>
+</section>
+
+
+<div class="container py-5">
+  <div class="form-section">
+    <h3 class="text-center mb-4">Post a Job Vacancy</h3>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Employer Information -->
+      <h4>Employer Information</h4>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>{{ form.employer_name.label }} <span>*</span></label>
+          {% render_field form.employer_name class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.business_type.label }} <span>*</span></label>
+          {% render_field form.business_type class="form-select" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.other_business_type.label }} <span>*</span></label>
+          {% render_field form.other_business_type class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.contact_person_name.label }} <span>*</span></label>
+          {% render_field form.contact_person_name class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.position_title.label }} <span>*</span></label>
+          {% render_field form.position_title class="form-control" %}
+        </div>
+        <div class="col-md-12 mb-3">
+          <label>{{ form.business_address.label }} <span>*</span></label>
+          {% render_field form.business_address class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.state.label }} <span>*</span></label>
+          {% render_field form.state class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.business_phone.label }} <span>*</span></label>
+          {% render_field form.business_phone class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.official_email.label }} <span>*</span></label>
+          {% render_field form.official_email class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.website_or_social.label }} <span>*</span></label>
+          {% render_field form.website_or_social class="form-control" %}
+        </div>
+      </div>
+
+      <!-- Job Details -->
+      <h4>Job Details</h4>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>{{ form.job_category.label }} <span>*</span></label>
+          {% render_field form.job_category class="form-select" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.number_of_positions.label }}</label>
+          {% render_field form.number_of_positions class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.employment_type.label }} <span>*</span></label>
+          {% render_field form.employment_type class="form-select" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.job_location.label }} <span>*</span></label>
+          {% render_field form.job_location class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.expected_start_date.label }} <span>*</span></label>
+          {% render_field form.expected_start_date class="form-control" %}
+        </div>
+        <div class="col-md-12 mb-3">
+          <label>{{ form.work_schedule.label }} <span>*</span></label>
+          {% render_field form.work_schedule class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.salary_range.label }} <span>*</span></label>
+          {% render_field form.salary_range class="form-select" %}
+        </div>
+      </div>
+
+      <!-- Job Description -->
+      <h4>Job Description</h4>
+      <div class="mb-3">
+        <label>{{ form.duties_responsibilities.label }} <span>*</span></label>
+        {% render_field form.duties_responsibilities class="form-control" %}
+      </div>
+      <div class="mb-3">
+        <label>{{ form.required_skills.label }} <span>*</span></label>
+        {% render_field form.required_skills class="form-control" %}
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>{{ form.min_qualification.label }} <span>*</span></label>
+          {% render_field form.min_qualification class="form-select" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.experience_level.label }} <span>*</span></label>
+          {% render_field form.experience_level class="form-select" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.preferred_gender.label }} <span>*</span></label>
+          {% render_field form.preferred_gender class="form-select" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.age_range.label }} <span>*</span></label>
+          {% render_field form.age_range class="form-select" %}
+        </div>
+      </div>
+
+      <!-- Compensation -->
+      <h4>Compensation & Benefits</h4>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>{{ form.salary_from.label }}</label>
+          {% render_field form.salary_from class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.salary_to.label }}</label>
+          {% render_field form.salary_to class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.payment_frequency.label }} <span>*</span></label>
+          {% render_field form.payment_frequency class="form-select" %}
+        </div>
+        <div class="col-md-12 mb-3">
+          <label>{{ form.benefits.label }} <span>*</span></label>
+          {% render_field form.benefits class="form-control" %}
+        </div>
+      </div>
+
+      <!-- Documentation & Verification -->
+      <h4>Documentation & Verification</h4>
+      <div class="mb-3">
+        <label>{{ form.required_documents.label }} <span>*</span></label>
+        {% render_field form.required_documents class="form-select" %}
+      </div>
+      <div class="mb-3">
+        <label>{{ form.verification_level.label }} <span>*</span></label>
+        {% render_field form.verification_level class="form-select" %}
+      </div>
+
+      <!-- Application Management -->
+      <h4>Application Management</h4>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>{{ form.application_deadline.label }}</label>
+          {% render_field form.application_deadline class="form-control" %}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>{{ form.interview_mode.label }} <span>*</span></label>
+          {% render_field form.interview_mode class="form-select" %}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>{{ form.notes.label }} <span>*</span></label>
+        {% render_field form.notes class="form-control" %}
+      </div>
+
+    <!-- Declaration --> 
+    <h4>Declaration</h4> 
+    <div class="form-check mb-3"> 
+        {% render_field form.declaration_agreed class="form-check-input" %} 
+        <label class="form-check-label">{{ form.declaration_agreed.label }} <span>*</span></label> 
+    </div> 
+    
+
+    <div class="form-check mb-3"> 
+        {% render_field form.declaration_agreed_2 class="form-check-input" %} 
+        <label class="form-check-label">{{ form.declaration_agreed_2.label }} <span>*</span></label> 
+    </div> 
+    
+    
+    <div class="form-check mb-3"> 
+        {% render_field form.declaration_agreed_3 class="form-check-input" %} 
+        <label class="form-check-label">{{ form.declaration_agreed_3.label }} <span>*</span></label> 
+    </div>
+
+      <!-- reCAPTCHA -->
+      <div class="mb-3">
+        {{ form.captcha }}
+        {% if form.captcha.errors %}
+          <div class="text-danger small caph5">You must complete the CAPTCHA to continue.</div>
+        {% else %}
+          <h5 class="caph5">You must complete the <b>CAPTCHA</b> to continue.</h5>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-45 btnsub">Submit Job Vacancy</button>
+    </form>
+  </div>
+</div>
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
