@@ -1,0 +1,23 @@
+/* ========= FOR CANDIDATE REGISTRATION SUCCESS ========== */
+/* ====================================================== */
+/* ====================================================== */
+
+.susbody{
+    background-color: grey !important;
+}
+
+.regsus {
+  margin-top: 10rem !important; /* Moves it below the nav */
+  /* margin-bottom: 5rem; */
+  max-width: 700px;
+  
+}
+
+.regsus .alert {
+  font-size: 1.05rem;
+  background-color: #2a3352 !important;
+  border: none !important;
+  line-height: 1.6;
+  background: #e8f9f0; /* light success background */
+  border: 1px solid #a7e2c1;
+}
