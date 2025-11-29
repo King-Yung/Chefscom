@@ -62,16 +62,16 @@
                 <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                     <p class="text-white mb-4 footer-list-title">Services</p>
                     <ul class="list-unstyled footer-list">
-                        <li><a href="#" class="text-foot">Home</a></li>
-                        <li><a href="{% url 'need_job' %}" class="text-foot"> I Need A Job</a></li>
-                        <li><a href="{% url 'need_staff' %}" class="text-foot"> I Need A Chef</a></li>
-                        <li><a href="{% url 'relief_chef' %}" class="text-foot">Find Relief Chef</a></li>
-                        <li><a href="{% url 'permanent_chef' %}" class="text-foot">Find Permanent Chef</a></li>
-                        <li><a href="{% url 'private_chef' %}" class="text-foot">Find Private Chef</a></li>
-                        <li><a href="{% url 'culinary_agents' %}" class="text-foot">Culinary Agent</a></li>
-                        <li><a href="{% url 'job_vacancies' %}" class="text-foot">Employers Hub</a></li>
-                        <li><a href="{% url 'chefs_hub' %}" class="text-foot">Chefs Hub</a></li>
-                        <li><a href="{% url 'subscription_page' %}" class="text-foot">Subscribe</a></li>
+                        <li><a href="{% url 'home' %}" class="text-foot activess">Home</a></li>
+                        <li><a href="{% url 'need_job' %}" class="text-foot activessa"> I Need A Job</a></li>
+                        <li><a href="{% url 'need_staff' %}" class="text-foot activar"> I Need A Chef</a></li>
+                        <li><a href="{% url 'relief_chef' %}" class="text-foot activesis">Find Relief Chef</a></li>
+                        <li><a href="{% url 'permanent_chef' %}" class="text-foot actives1">Find Permanent Chef</a></li>
+                        <li><a href="{% url 'private_chef' %}" class="text-foot actives2">Find Private Chef</a></li>
+                        <li><a href="{% url 'culinary_agents' %}" class="text-foot actives3">Culinary Agent</a></li>
+                        <li><a href="{% url 'job_vacancies' %}" class="text-foot actives4" id="actives4">Employers Hub</a></li>
+                        <li><a href="{% url 'chefs_hub' %}" class="text-foot activesb">Chefs Hub</a></li>
+                        <li><a href="{% url 'subscription_page' %}" class="text-foot activesc">Subscribe</a></li>
 
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'logout' %}" class="text-foot">Logout</a></li>
@@ -85,17 +85,17 @@
                     <p class="text-white mb-4 footer-list-title">Links</p>
                     <ul class="list-unstyled footer-list">
                         
-                        <li><a href="{% url 'faq' %}" class="text-foot">FAQs</a></li>
-                        <li><a href="{% url 'partners' %}" class="text-foot">Partners</a></li>
-                        <li><a href="{% url 'event_news' %}" class="text-foot">Event & News</a></li>
-                        <li><a href="{% url 'disclaimer' %}" class="text-foot">Disclaimer</a></li>
-                        <li><a href="{% url 'terms_condition' %}" class="text-foot">Terms and Conditions</a></li>
-                        <li><a href="{% url 'privacy_policy' %}" class="text-foot">Privacy Policies</a></li>
-                        <li><a href="{% url 'about' %}" class="text-foot">About us</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-foot">Contact us</a></li>
-                        <li><a href="{% url 'submit_job' %}" class="text-foot">Post Jobs Free</a></li>
-                        <li><a href="{% url 'submit_cv' %}" class="text-foot">Looking for a Job?</a></li>
-                        <li><a href="{% url 'job_vacancies' %}" class="text-foot">View all Vacancies</a></li>
+                        <li><a href="{% url 'faq' %}" class="text-foot actives01">FAQs</a></li>
+                        <li><a href="{% url 'partners' %}" class="text-foot activar1">Partners</a></li>
+                        <li><a href="{% url 'event_news' %}" class="text-foot activeev">Event & News</a></li>
+                        <li><a href="{% url 'disclaimer' %}" class="text-foot activesdis">Disclaimer</a></li>
+                        <li><a href="{% url 'terms_condition' %}" class="text-foot activeter">Terms and Conditions</a></li>
+                        <li><a href="{% url 'privacy_policy' %}" class="text-foot activepri">Privacy Policies</a></li>
+                        <li><a href="{% url 'about' %}" class="text-foot activeabo">About us</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-foot activecon">Contact us</a></li>
+                        <li><a href="{% url 'submit_job' %}" class="text-foot activepost">Post Jobs Free</a></li>
+                        <li><a href="{% url 'submit_cv' %}" class="text-foot activecvv">Looking for a Job?</a></li>
+                        <li><a href="{% url 'job_vacancies' %}" class="text-foot " id="activeview">View all Vacancies</a></li>
                        
                     </ul>
                 </div>

@@ -6,6 +6,11 @@
   margin-top: 0.1rem !important;
 }
 
+.activess{
+  color: rgb(100, 141, 230) !important;
+  font-weight: bold !important;
+}
+
 
 /* === HOME REGISTRATION FORM === */
 .home-registration-form.caros {

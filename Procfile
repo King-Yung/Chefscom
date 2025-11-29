@@ -1,1 +1,1 @@
-web: gunicorn Chefscom.wsgi
+web: gunicorn core.wsgi:application
