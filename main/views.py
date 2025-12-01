@@ -48,6 +48,7 @@ from django.db.models import F
 import feedparser
 from django.core.cache import cache
 from main.tasks import fetch_career_advice
+from django.utils.timezone import now
 # Create your views here.
 
 
@@ -80,14 +81,37 @@ def fetch_feed(url, cache_key, limit=3):
     return items
 
 
+def convert_to_string(value):
+    """
+    Converts a value to a clean comma-separated string.
+    Works for list, tuple, MultiSelectField, or strings.
+    Removes brackets and quotes if present.
+    """
+    if not value:
+        return "Not specified"
+    
+    # Handle list or tuple
+    if isinstance(value, (list, tuple)):
+        return ", ".join([str(v).strip() for v in value if v])
+    
+    # If string, remove brackets/quotes if mistakenly stored
+    value_str = str(value).strip()
+    if value_str.startswith("[") and value_str.endswith("]"):
+        value_str = value_str[1:-1]  # remove brackets
+    value_str = value_str.replace("'", "").replace('"', "")
+    return value_str
+
+
+
 
 def home(request):
-    # Your existing counts and testimonies
+    # Counts
     total_companies = EmployerProfile.objects.filter(is_verified=True).count()
     total_applications = JobApplication.objects.all().count()
-    total_jobs = JobVacancySubmission.objects.filter(is_approved=True).count() + NeedChefSubmission.objects.filter(is_approved=True).count()
+    total_jobs = JobVacancySubmission.objects.filter(is_approved=True).count() + Candidate.objects.filter(is_approved=True).count()
     total_members = User.objects.filter(is_active=True).count()
 
+    # Testimonies
     testimonies_raw = TestimonyLog.objects.select_related('user').all().order_by('-created_at')[:50]
     testimonies = []
     for t in testimonies_raw:
@@ -97,7 +121,6 @@ def home(request):
             profile_pic = user.chefprofile.profile_picture.url
         elif hasattr(user, 'employerprofile') and user.employerprofile.profile_picture:
             profile_pic = user.employerprofile.profile_picture.url
-
         testimonies.append({
             "id": t.id,
             "user": user,
@@ -106,10 +129,63 @@ def home(request):
             "profile_pic": profile_pic,
         })
 
-    # Get career advice from cache
+    # Career advice
     career_advices = cache.get("career_advice_feed")
     if not career_advices:
         career_advices = fetch_career_advice()
+
+    # Fetch jobs
+    cv_jobs = NeedChefSubmission.objects.filter(is_approved=True)
+    candidate_jobs = JobVacancySubmission.objects.filter(is_approved=True)
+
+    all_jobs = []
+
+    # Map NeedChefSubmission jobs
+    for job in cv_jobs:
+        profile_pic = None
+        if job.user and hasattr(job.user, "employerprofile") and job.user.employerprofile.profile_picture:
+            profile_pic = job.user.employerprofile.profile_picture.url
+
+        all_jobs.append({
+            "id": job.id,
+            "job_title": convert_to_string(getattr(job, "job_positions", "Job Title")),
+            "establishment": convert_to_string(getattr(job, "company_name", "Private Employer")),
+            "preferred_locations": convert_to_string(getattr(job, "state_of_residence", "Not specified")),
+            "salary": convert_to_string(getattr(job, "salary_range", "Not specified")),
+            "experience_years": convert_to_string(getattr(job, "years_experience", "Not specified")),
+            "job_type": convert_to_string(getattr(job, "employment_type", "Full Time")),
+            "expertise": convert_to_string(getattr(job, "skills_cuisine", "Not specified")),
+            "apply_link": f"/apply/needchef/{job.id}/",
+            "date": getattr(job, "submitted_at", now()),
+            "is_candidate_job": False,
+            "show_naira": False,  # No Naira for NeedChef jobs
+            "profile_pic": profile_pic,
+        })
+
+    # Map JobVacancySubmission jobs
+    for job in candidate_jobs:
+        profile_pic = None
+        if job.user and hasattr(job.user, "employerprofile") and job.user.employerprofile.profile_picture:
+            profile_pic = job.user.employerprofile.profile_picture.url
+
+        all_jobs.append({
+            "id": job.id,
+            "job_title": convert_to_string(getattr(job, "job_category", "Job Title")),
+            "establishment": convert_to_string(getattr(job, "establishment", getattr(job, "employer_name", "Private Employer"))),
+            "preferred_locations": convert_to_string(getattr(job, "job_locations", getattr(job, "preferred_location_other", "Nigeria"))),
+            "salary": convert_to_string(getattr(job, "salary_range", getattr(job, "experience_years", "Not specified"))),
+            "experience_years": convert_to_string(getattr(job, "experience_level", getattr(job, "years_experience", "Not specified"))),
+            "job_type": convert_to_string(getattr(job, "get_preferred_job_types_display", lambda: "Full Time")()),
+            "expertise": convert_to_string(getattr(job, "required_skills", getattr(job, "additional_skills", "Not specified"))),
+            "apply_link": f"/apply/job/{job.id}/",
+            "date": getattr(job, "date_submitted", now()),
+            "is_candidate_job": True,
+            "show_naira": True,  # Show Naira for JobVacancySubmission
+            "profile_pic": profile_pic,
+        })
+
+    # Sort jobs by date (latest first)
+    all_jobs.sort(key=lambda x: x["date"], reverse=True)
 
     context = {
         "total_companies": total_companies,
@@ -118,9 +194,11 @@ def home(request):
         "total_members": total_members,
         "testimonies": testimonies,
         "career_advices": career_advices,
+        "jobs": all_jobs,
     }
 
     return render(request, "home.html", context)
+
 
 
 
