@@ -4,8 +4,22 @@
 <head>
     <title>Contact | chefs.com.ng</title>
 
-    <style>
-            /* HERO SECTION */
+<style>
+
+/* GLOBAL FIX — remove ALL side spacing */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Make sure bootstrap grids never overflow */
+.container, .container-fluid, .row, [class*="col"] {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+}
+
+/* HERO SECTION */
 .needhome {
     position: relative;
     height: 120vh;
@@ -16,14 +30,15 @@
     color: #fff;
     z-index: 1;
     margin-top: -5rem !important;
-    padding-top: 0;
+    padding: 0;
+    width: 100% !important;
 }
 
 .needhome::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("{% static 'pictures/contact.png' %}") center center / cover no-repeat;
+    background: url("{% static 'pictures/contact.png' %}") center center/cover no-repeat;
     opacity: 1;
     z-index: -1;
 }
@@ -39,6 +54,7 @@
     position: relative;
     z-index: 2;
     text-align: center;
+    width: 100% !important;
 }
 
 .bg-home h5 {
@@ -59,228 +75,293 @@
     margin-top: 0.8rem;
 }
 
-.bg-home {
-    animation: fadeInHero 1.2s ease-in-out;
-}
+.bg-home { animation: fadeInHero 1.2s ease-in-out; }
 
 @keyframes fadeInHero {
     from { opacity: 0; transform: scale(1.03); }
     to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes bgZoom {
-  0% {
-    transform: scale(1.03);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.caph5 { font-size: .9rem; color: red; }
+
+.activecon {
+    color: rgb(100, 141, 230) !important;
+    font-weight: bold !important;
 }
 
-.caph5 {
-      font-size: 0.9rem;
-      color: red;
+/* ===================== RESPONSIVE ===================== */
+
+/* ======== MOBILE (≤600px) ======== */
+@media (max-width: 600px) {
+
+    .logoimg{
+        margin-top: 0.3rem !important;
+        margin-left: 1rem !important;
     }
 
+    /* Remove ALL unwanted spacing */
+    .needhome,
+    .home-center,
+    .bg-home,
+    .container,
+    .container-fluid,
+    .row,
+    [class*="col"],
+    body,
+    html {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
 
-.activecon{
-  color: rgb(100, 141, 230) !important;
-  font-weight: bold !important;
+    .needhome {
+        height: 60vh;
+        margin-top: -2rem !important;
+    }
+
+    .bg-home h5 {
+        font-size: 1rem;
+        margin-top: 5rem !important;
+    }
+
+    .bg-home h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        padding: 0 1rem;
+    }
+
+    .conweb{
+        width: 100% !important;
+    }
+    .webrow {
+        padding: 1rem !important;
+        width: 100% !important;
+    }
+
+    .formma{
+        width: 90% !important;
+        padding: 0% !important;
+
+        .ads{
+            width: 110% !important;
+        }
+
+        .aa{
+            width: 90% !important;
+        }
+    }
+.cronts{
+    width: 90% !important;
+
+    .comssi{
+        width: 80% !important;
+        padding: 2% !important;
+    }  
+} 
+
+    .iframes {
+        height: 250px !important;
+        width: 100% !important;
+    }
 }
-    </style>
+
+footer{
+    .pitts{
+      padding-inline: 1.5rem !important;
+    }
+}
+
+
+/* ======== TABLET (601px–768px) ======== */
+@media (min-width: 601px) and (max-width: 768px) {
+    .needhome {
+        height: 80vh;
+        margin-top: -3rem !important;
+    }
+    .bg-home h5 {
+        font-size: 1.1rem;
+        margin-top: 8rem !important;
+    }
+    .bg-home h1 {
+        font-size: 2rem;
+        line-height: 1.4;
+    }
+}
+
+/* ======== SMALL LAPTOP (769px–1024px) ======== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .needhome {
+        height: 100vh;
+        margin-top: -4rem !important;
+    }
+    .bg-home h5 {
+        font-size: 1.15rem;
+        margin-top: 9rem !important;
+    }
+    .bg-home h1 {
+        font-size: 2.1rem;
+        line-height: 1.45;
+    }
+}
+
+</style>
 </head>
 
 {% include 'header.html' %}
 
 <body>
-    <!-- Loader -->
-    <div id="preloader">
-        <div id="status">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
-        </div>
-    </div>
-    <!-- Loader -->
 
-    
-   <!-- Hero Section -->
-  <section class="bg-home needhome">
+<!-- Loader -->
+<div id="preloader"><div id="status"><div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+</div></div></div>
+
+<!-- HERO -->
+<section class="bg-home needhome">
     <div class="bg-overlay"></div>
     <div class="home-center d-flex align-items-center">
-      <div class="container contain text-center text-white fade-in">
-        <!-- <h5 class="small-title text-uppercase mb-3 hh5 slide-up">Meet our partners </h5> -->
+      <div class="container text-center text-white fade-in">
         <h1 class="heading fw-bold mb-4 hh1 slide-up delay">Contact us</h1>
       </div>
     </div>
-  </section>
-    <!-- end home -->
+</section>
 
-    <!-- MAP START -->
-    <section class="section pt-0 bg-light">
-        <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 p-0">
-            <div class="map">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d656.6327527890538!2d7.454883434322166!3d9.059270365487766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b2345f9d2e1%3A0x5488e60d7de91233!2sAnbeez%20Plaza%2C%20Ndola%20Cres%2C%20Wuse%2C%20Abuja%20904101%2C%20Federal%20Capital%20Territory!5e0!3m2!1sen!2sng!4v1764254830679!5m2!1sen!2sng" 
-                    width="100%" 
-                    height="500" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+<!-- MAP -->
+<section class="section pt-0 bg-light">
+    <div class="container-fluid p-0">
+        <div class="row m-0">
+            <div class="col-lg-12 p-0">
+                <iframe class="iframes" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d656.6327527890538!2d7.454883434322166!3d9.059270365487766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b2345f9d2e1%3A0x5488e60d7de91233!2sAnbeez%20Plaza%2C%20Ndola%20Cres%2C%20Wuse%2C%20Abuja%20904101%2C%20Federal%20Capital%20Territory!5e0!3m2!1sen!2sng!4v1764254830679!5m2!1sen!2sng" frameborder="0"></iframe>
             </div>
         </div>
     </div>
-</div>
 
-        
-        <div class="container mt-100 mt-60">
-            <div class="row align-items-center">
-                <div class="col-lg-4">
-                    <div class="contact-item mt-40">
-                        <div class="float-start">
-                            <div class="contact-icon d-inline-block border rounded-pill shadow text-primary mt-1 me-4">
-                                <i class="mdi mdi-earth"></i>
-                            </div>
-                        </div>
-                        <div class="contact-details">
-                            <h4 class="text-dark mb-1">Website</h4>
-                            <p class="mb-0 text-muted"><a href="http://chefs.com.ng">www.chefs.com.ng</a></p> 
-                            <!-- <p class="mb-0 text-muted">Themescode Pvt.Ltd.co.in</p> -->
-                        </div>
+    <div class="container mt-100 mt-60">
+        <div class="row align-items-center webrow">
+
+            <div class="col-lg-4">
+                <div class="contact-item mt-40 d-flex">
+                    <div class="contact-icon d-inline-block border rounded-pill shadow text-primary me-4">
+                        <i class="mdi mdi-earth"></i>
                     </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="contact-item mt-40">
-                        <div class="float-start">
-                            <div class="contact-icon d-inline-block border rounded-pill shadow text-primary mt-1 me-4">
-                                <i class="mdi mdi-cellphone-iphone"></i>
-                            </div>
-                        </div>
-                        <div class="contact-details">
-                            <h4 class="text-dark mb-1">Call us</h4>
-                            <p class="mb-0 text-muted"> <a href="+23409900000000">+23409900000000</a></p>
-                            <!-- <p class="mb-0 text-muted">123 456 7890</p> -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="contact-item mt-40">
-                        <div class="float-start">
-                            <div class="contact-icon d-inline-block border rounded-pill shadow text-primary mt-1 me-4">
-                                <i class="mdi mdi-email"></i>
-                            </div>
-                        </div>
-                        <div class="contact-details">
-                            <h4 class="text-dark mb-1">Email</h4>
-                            <p class="mb-0 text-muted"><a href="mailto:support@chefs.com.ng">support@chefs.com.ng</a></p>
-                            <!-- <p class="mb-0 text-muted">Brandcodeltd@gmail.com</p> -->
-                        </div>
+                    <div>
+                        <h4 class="text-dark mb-1">Website</h4>
+                        <p class="mb-0 text-muted"><a href="http://chefs.com.ng">www.chefs.com.ng</a></p>
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-4">
+                <div class="contact-item mt-40 d-flex">
+                    <div class="contact-icon d-inline-block border rounded-pill shadow text-primary me-4">
+                        <i class="mdi mdi-cellphone-iphone"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-dark mb-1">Call us</h4>
+                        <p class="mb-0 text-muted"><a href="+23409900000000">+23409900000000</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="contact-item mt-40 d-flex">
+                    <div class="contact-icon d-inline-block border rounded-pill shadow text-primary me-4">
+                        <i class="mdi mdi-email"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-dark mb-1">Email</h4>
+                        <p class="mb-0 text-muted"><a href="mailto:support@chefs.com.ng">support@chefs.com.ng</a></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>
-    <!-- CONTACT END -->
+    </div>
+</section>
 
-    <!-- CONTACT FORM START -->
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4 class="text-dark mb-0">Get In Touch :</h4>
-                </div>
-            </div>
+<!-- CONTACT FORM -->
+<section class="section conweb">
+    <div class="container webrow">
+        <h4 class="text-dark mb-4">Get In Touch :</h4>
 
-            <div class="row">
-                <div class="col-lg-8 col-md-7 mt-4 pt-2">
-                    <div class="custom-form rounded border p-4">
-                        <div id="message"></div>
-                        <form method="post" action="{% url 'contact' %}" name="contact-form" id="contact-form">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 ">
+
+                <div class="custom-form rounded border p-4 formma">
+                    <form method="post" action="{% url 'contact' %}" class="formma">
                         {% csrf_token %}
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Name</label>
-                                        <input name="name" id="name2" type="text" class="form-control resume" placeholder="Enter Name..">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Email address</label>
-                                        <input name="email" id="email1" type="email" class="form-control resume" placeholder="Enter Email..">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Subject</label>
-                                        <input name="subject" type="text" class="form-control resume" id="subject" placeholder="Subject..">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Message</label>
-                                        <textarea name="message" id="comments" rows="5" class="form-control resume" placeholder="Message.."></textarea>
-                                    </div>
-                                </div>
 
-                                <!-- CAPTCHA -->
-                                <div class="form-section">
-                                    {{ form.captcha }}
-                                    {% if form.captcha.errors %}
-                                    <div class="text-danger small caph5">You must complete the CAPTCHA to continue.</div>
-                                    {% else %}
+                        <div class="row ads" >
+                            <div class="col-lg-6 ads">
+                                <label class="text-muted ">Name</label>
+                                <input name="name" type="text" class="form-control resume aa">
+                            </div>
+
+                            <div class="col-lg-6 ads">
+                                <label class="text-muted">Email</label>
+                                <input name="email" type="email" class="form-control resume aa">
+                            </div>
+
+                            <div class="col-lg-12 ads">
+                                <label class="text-muted">Subject</label>
+                                <input name="subject" type="text" class="form-control resume aa">
+                            </div>
+
+                            <div class="col-lg-12 ads">
+                                <label class="text-muted">Message</label>
+                                <textarea name="message" rows="5" class="form-control resume aa"></textarea>
+                            </div>
+
+                            <div class="form-section mt-3">
+                                {{ form.captcha }}
+                                {% if form.captcha.errors %}
+                                    <div class="text-danger small caph5">You must complete the CAPTCHA.</div>
+                                {% else %}
                                     <h5 class="caph5">You must complete the <b>CAPTCHA</b> to continue.</h5>
-                                    {% endif %}
-                                </div>
+                                {% endif %}
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Send Message">
-                                    <div id="simple-msg"></div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary mt-3" value="Send Message">
+                    </form>
                 </div>
 
-                <div class="col-lg-4 col-md-5 mt-4 pt-2">
-                    <div class="border rounded text-center p-4">
-                        <h5 class="text-dark pb-3">Contact Info</h5>
-                        <div class="contact-location rounded mt-5 p-4">
-                            <div class="contact-location-icon bg-white text-primary rounded-pill">
-                                <i class="mdi mdi-map-marker"></i>
-                            </div>
-                            <p class="text-muted pt-4 f-20 mb-0">Suite 2007, Plot 2121 Ndola Crescent, Anbeez Plaza, Zone 5, Wuse, Abuja.</p>
+            </div>
+
+            <div class="col-lg-4 col-md-5 mt-4 pt-2 cronts">
+                <div class="border rounded text-center p-4 conssi">
+                    <h5 class="text-dark pb-3">Contact Info</h5>
+
+                    <div class="contact-location rounded mt-5 p-4">
+                        <div class="contact-location-icon bg-white text-primary rounded-pill ">
+                            <i class="mdi mdi-map-marker"></i>
                         </div>
-                        <h6 class="text-muted mt-4 mb-0">Share</h6>
-                        <ul class="list-unstyled social-icon mt-3 mb-0">
-                            <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-whatsapp"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.facebook.com/share/1CaUVf2e4z/" class=""><i class="mdi mdi-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="#" class=""><i class="mdi mdi-youtube"></i></a></li>
-                            <li class="list-inline-item"><a href="https://x.com/chefjamesaa2l?s=21" class=""><i class="mdi mdi-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.instagram.com/chef._com.ng?igsh=MTIwanl2NTA3dWNuZg==" class=""><i class="mdi mdi-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="mailto:info@chefs.com.ng" class=""><i class="mdi mdi-email"></i></a></li>
-                            
-                        </ul>
+                        <p class="text-muted pt-4 f-20">
+                            Suite 2007, Plot 2121 Ndola Crescent, Anbeez Plaza, Wuse, Abuja.
+                        </p>
                     </div>
+
+                    <h6 class="text-muted mt-4">Share</h6>
+
+                    <ul class="list-unstyled social-icon mt-3">
+                        <li class="list-inline-item"><a href="#"><i class="mdi mdi-whatsapp"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.facebook.com/share/1CaUVf2e4z/"><i class="mdi mdi-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="mdi mdi-youtube"></i></a></li>
+                        <li class="list-inline-item"><a href="https://x.com/chefjamesaa2l?s=21"><i class="mdi mdi-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.instagram.com/chef._com.ng"><i class="mdi mdi-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="mailto:info@chefs.com.ng"><i class="mdi mdi-email"></i></a></li>
+                    </ul>
                 </div>
             </div>
+
         </div>
-    </section>
-    <!-- CONTACT FORM END -->
+    </div>
+</section>
 
 {% include 'footer.html' %}
 
 </body>
-
-<!-- Mirrored from themesdesign.in/jobya/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Oct 2025 19:06:27 GMT -->
 </html>

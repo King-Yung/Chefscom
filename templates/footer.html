@@ -13,6 +13,17 @@
   from { transform: translate(-50%, 100%); opacity: 0; }
   to { transform: translate(-50%, 0); opacity: 1; }
 }
+
+footer{
+
+    .pitt{
+      padding-inline: 1rem !important;
+    }
+
+    .pitts{
+      padding-inline: 1.2rem !important;
+    }
+  }
 </style>
 
 <!-- 🍪 PRIVACY & COOKIES NOTICE BANNER -->
@@ -47,7 +58,7 @@
             <div class="row">
                 <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2"> 
                     <a href="{% url 'home' %}" ><img src="{% static 'pictures/logomain.png' %}" height="50" alt="" style="margin-top: 1rem; margin-bottom: 1rem;"></a>
-                    <p class="mt-0">We connect passionate culinary professionals with trusted employers across Africa — transforming kitchen skills into lasting careers.</p>
+                    <p class="mt-0 pitt">We connect passionate culinary professionals with trusted employers across Africa — transforming kitchen skills into lasting careers.</p>
                     <ul class="social-icon social list-inline mb-0">
                         <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-whatsapp"></i></a></li>
                         <li class="list-inline-item"><a href="https://www.facebook.com/share/1CaUVf2e4z/" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
@@ -108,8 +119,8 @@
                     </ul>
 
                     <!-- Newsletter Section -->
-                    <p class="text-white mb-3 footer-list-title f-17 news">Subscribe to our Newsletter</p>
-                    <form method="post" action="{% url 'subscribe_newsletter' %}" class="newsletter-form">
+                    <p class="text-white mb-3 footer-list-title f-17 news ">Subscribe to our Newsletter</p>
+                    <form method="post" action="{% url 'subscribe_newsletter' %}" class="newsletter-form pitts">
                         {% csrf_token %}
                         
                         <!-- Email Input Field -->
@@ -124,7 +135,7 @@
                         </div>
 
                         <!-- Subscribe Button -->
-                        <div class="text-center">
+                        <div class="text-center ">
                             <button type="submit" class="btn btn-primary px-4 rounded">Subscribe</button>
                         </div>
                     </form>

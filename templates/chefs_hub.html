@@ -98,6 +98,70 @@
   color: rgb(100, 141, 230) !important;
   font-weight: bold !important;
 }
+
+
+
+@media (max-width: 600px) {
+  .needhome {
+    height: 60vh !important;       /* Full screen on phones */
+    padding-top: 0;
+  }
+
+  .needhome::before {
+    background-position: center top !important;
+    background-size: cover !important;
+    transform: scale(1.05);         /* Slight zoom for better fit */
+  }
+
+  
+
+
+  .needhome h5 {
+        font-size: 1rem !important;
+        margin-top: 20rem !important;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+
+    .needhome h1 {
+        font-size: 1.5rem !important;
+        line-height: 1.3 !important;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+}
+
+
+@media (min-width: 600px) and (max-width: 991px) {
+  .needhome {
+    height: 70vh !important;
+  }
+
+  .needhome::before {
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+
+  .hh1 {
+    font-size: 2.2rem !important;
+    margin-top: 12rem !important;
+  }
+
+  .hh5 {
+    font-size: 1.1rem !important;
+  }
+}
+
+
+
+@media (min-width: 1200px) {
+  .needhome {
+    height: 150vh !important;
+  }
+
+  .needhome::before {
+    background-size: cover !important;
+  }
+}
+
     </style>
 </head>
 <body>

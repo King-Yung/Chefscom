@@ -111,6 +111,61 @@
   color: rgb(100, 141, 230) !important;
   font-weight: bold !important;
 }
+
+
+@media (max-width: 600px) {
+  .abouth {
+    height: 60vh !important;   /* Fill phone screen */
+    margin-top: -3rem !important;
+    padding-top: 0;
+  }
+
+  .abouth::before {
+    background-position: center top !important;
+    height: 60vh !important;   /* Fill phone screen */
+    background-size: cover !important;
+  }
+
+  .hh1 {
+    margin-top: 20rem !important; /* Reduce spacing for mobile */
+    font-size: 1.7rem !important;
+  }
+
+  .pii {
+    font-size: 1rem !important;
+  }
+}
+
+
+
+@media (min-width: 600px) and (max-width: 991px) {
+  .abouth {
+    height: 70vh !important;
+  }
+
+  .abouth::before {
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+
+  .hh1 {
+    margin-top: 14rem !important;
+    font-size: 2rem !important;
+  }
+}
+
+
+
+@media (min-width: 1200px) {
+  .abouth {
+    height: 150vh !important;
+  }
+
+  .abouth::before {
+    background-size: cover !important;
+  }
+}
+
     </style>
 </head>
 

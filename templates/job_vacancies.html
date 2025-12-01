@@ -108,6 +108,66 @@
   color: rgb(100, 141, 230) !important;
   font-weight: bold !important;
 }
+
+
+@media (max-width: 600px) {
+  .needhome {
+    height: 60vh !important;
+    margin-top: -3rem !important;
+    padding-top: 0;
+  }
+
+  .needhome::before {
+    background-position: center top !important;
+    background-size: cover !important;
+    transform: scale(1.05);
+  }
+
+  .bg-home h5 {
+    margin-top: 20rem !important;
+    font-size: 1rem !important;
+  }
+
+  .bg-home h1 {
+    font-size: 1.8rem !important;
+  }
+}
+
+
+
+@media (min-width: 600px) and (max-width: 991px) {
+  .needhome {
+    height: 70vh !important;
+  }
+
+  .needhome::before {
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+
+  .bg-home h5 {
+    margin-top: 12rem !important;
+    font-size: 1.1rem !important;
+  }
+
+  .bg-home h1 {
+    font-size: 2rem !important;
+  }
+}
+
+
+
+@media (min-width: 1200px) {
+  .needhome {
+    height: 150vh !important;
+  }
+
+  .needhome::before {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
+
   </style>
 </head>
 <body>

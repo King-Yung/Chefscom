@@ -9,140 +9,179 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #e6e9f0, #eef1f5);
-      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: bold;
-      /* padding-top: 6rem; */
-    }
+<style>
 
-    .cvhome {
-      position: relative;
-      height: 150vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      background: linear-gradient(rgba(10, 10, 10, 0), rgba(10, 10, 10, 0)),
-        url("{% static 'pictures/submit_cv.png' %}") center center / cover no-repeat;
-        opacity: 100% !important;
-    }
+/* RESET OVERFLOW ISSUES */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+}
 
-    .cvhome h1 {
-      font-weight: 700;
-      font-size: 2.2rem;
-      max-width: 900px;
-      margin: auto;
-      line-height: 1.5;
-    }
+/* PAGE BACKGROUND */
+body {
+  background: linear-gradient(to bottom right, #e6e9f0, #eef1f5);
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
 
-    .cvcont {
-      margin-top: 3rem !important;
-      margin-bottom: 4rem;
-      z-index: 2;
-      position: relative;
-    }
-
-
-    .form-card {
-      background: white;
-      color: black;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #182848;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .form-section-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-top: 2rem;
-      color: #182848;
-      text-transform: uppercase;
-      border-bottom: 2px solid #182848;
-      padding-bottom: 5px;
-    }
-
-    .btn-submit {
-      background: #182848;
-      color: white;
-      border-radius: 50px;
-      font-weight: 600;
-      padding: 12px 30px;
-      transition: 0.3s;
-    }
-
-    .btn-submit:hover {
-      background: #182848;
-      color: white;
-    }
-
-        /* Subtle fade-in animation */
+/* HERO SECTION */
 .cvhome {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 1rem;
+  background: 
+    linear-gradient(rgba(10,10,10,0.35), rgba(10,10,10,0.55)),
+    url("{% static 'pictures/submit_cv.png' %}") center/cover no-repeat;
   animation: fadeInHero 1.2s ease-in-out;
 }
 
 @keyframes fadeInHero {
-  from {
-    opacity: 0;
-    transform: scale(1.03);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(1.02); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-.he1{
-    width: 120% !important;
-    text-shadow: 1px 1px 2px black !important;
-    font-size: 2rem !important;
+.cvhome h1 {
+  font-size: 2.2rem;
+  line-height: 1.4;
+  max-width: 800px;
+  margin: auto;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
 }
 
-h5{
-    text-shadow: 1px 1px 2px black !important;
-    font-size: 1.5rem ;
-    color: white !important;
+.cvn {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px black;
 }
 
-.highp{
-    background-color: #1828489c !important;
-    padding: 1rem !important;
-    border-radius: 20px !important;
-    color: white !important;
-    text-shadow: 0.5px 0.5px 1px black !important;
+/* FORM CONTAINER */
+.cvcont {
+  max-width: 1050px;
+  margin: 4rem auto;
+  padding: 0 1.2rem;
 }
 
-.spann{
-    color: red;
+.form-card {
+  background: white;
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+  width: 100%;
 }
 
-.caph5{
-    font-size: 0.9rem !important;
-    color: red !important;
-    text-shadow: none !important;
-  }
+/* SECTION TITLES */
+.form-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2.2rem;
+  padding-bottom: 7px;
+  text-transform: uppercase;
+  color: #182848;
+  border-bottom: 2px solid #182848;
+}
 
-  footer{
-      font-weight: normal !important;
-    }
+/* BUTTON */
+.btn-submit {
+  background: #182848;
+  color: white;
+  padding: 14px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  background: #0f1a34;
+}
+
+/* Checkboxes / Radios Fix — Prevent Overflow */
+.form-check-inline {
+  margin-right: 1rem;
+  margin-bottom: 0.4rem;
+  white-space: nowrap;
+}
+
+/* HIGH PAYING BOX */
+.highp {
+  background-color: #182848c7;
+  padding: 1.4rem;
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+}
 
 .activecvv{
   color: rgb(100, 141, 230) !important;
   font-weight: bold !important;
 }
-  </style>
+
+/* MOBILE: prefer top of image (prevents cropping heading) and give min-height */
+@media (max-width: 600px) {
+  .cvn {
+    margin-top: 4.5rem !important;              /* keep headline visible */
+    font-size: 1rem !important;
+  }
+
+  .cvhome {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 55vh !important;
+    background-size: cover !important;
+    background-position: top center !important;
+    overflow: hidden !important;
+  }
+
+  /* hero heading */
+  .he1, .cvhome h1 {
+    font-size: 1.45rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 1rem !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* the white card container under the hero */
+  .cvcont, .container {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* TABLET: slightly larger hero height and center the image */
+@media (min-width: 601px) and (max-width: 991px) {
+  .cvhome {
+    background-position: center center !important;
+    min-height: 62vh !important;
+    padding: 1rem 1.2rem !important;
+  }
+  .cvhome h1, .he1 { font-size: 1.8rem !important; }
+}
+
+/* DESKTOP LARGE: keep original behavior */
+@media (min-width: 1200px) {
+  .cvhome { min-height: 70vh !important; background-position: center center !important; }
+  .cvhome h1, .he1 { font-size: 2.2rem !important; }
+}
+
+/* Small extra: ensure no horizontal scroll from any element */
+html, body, .cvcont, .form-card {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+</style>
+
+
 </head>
 
 <body>

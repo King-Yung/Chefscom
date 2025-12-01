@@ -145,3 +145,53 @@
 }
 
 
+
+/* ================================================================== */
+/* ====================================================================== */
+@media (max-width: 600px) {
+  .homes {
+    height: 60vh !important;   /* fit exactly to screen height */
+    background-position: center top !important; /* better visible area */
+  }
+
+  .registration-form-box {
+    right: 0 !important;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
+  }
+
+  .h1{
+    font-size: 1.7rem !important;
+    margin-top: -6.5rem !important;
+  }
+
+  .pi{
+    font-size: 1rem !important;
+  }
+
+  .caros {
+    height: 30vw !important; /* reduce height for smaller screens */
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 991px) {
+  .homes {
+    height: 70vh !important;
+    background-position: center center !important;
+  }
+
+  .registration-form-box {
+    right: -5rem !important;
+    bottom: 2rem !important;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .homes {
+    background-size: cover !important;
+    height: 150vh !important; /* your original setting */
+  }
+}
