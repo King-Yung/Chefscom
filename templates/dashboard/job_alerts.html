@@ -1,0 +1,164 @@
+{% include 'header.html' %}
+<title>Job Alerts | Chefs.com</title>
+
+<style>
+.bodys { background-color: grey; }
+.btnback { margin-top: 8rem !important; }
+.testimony-form { margin-top: 10px; }
+textarea.form-control { resize: none; }
+.engagement-card { border: 1px solid #ccc; border-radius: 5px; }
+</style>
+
+<body class="bodys">
+<div class="container py-5">
+  <a href="javascript:history.back()" class="btn btn-primary btnback mb-3">← Back</a>
+
+  <h4 class="text-center mb-4">📢 Job Alerts</h4>
+
+  {% if job_engagements %}
+    <div class="list-group">
+      {% for engagement in job_engagements %}
+        <div class="list-group-item engagement-card mb-3 p-3" id="engagement-{{ engagement.id }}">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5>{{ engagement.employer.get_full_name|default:engagement.employer.username }}</h5>
+            <small>{{ engagement.created_at|date:"M d, Y" }}</small>
+          </div>
+
+          {% if engagement.message %}
+            <p>{{ engagement.message }}</p>
+          {% endif %}
+
+          {% if not engagement.is_viewed %}
+            <span class="badge bg-warning text-dark mb-2">New</span>
+          {% endif %}
+
+          <div class="d-flex gap-2 mb-2">
+            {% if engagement.status == 'pending' %}
+              <button class="btn btn-sm btn-success accept-btn" data-id="{{ engagement.id }}">Accept</button>
+              <button class="btn btn-sm btn-danger reject-btn" data-id="{{ engagement.id }}">Reject</button>
+            {% elif engagement.status == 'accepted' %}
+              <span class="badge bg-success">Accepted</span>
+            {% elif engagement.status == 'rejected' %}
+              <span class="badge bg-danger">Rejected</span>
+            {% elif engagement.status == 'engaged' %}
+              <span class="badge bg-info text-dark">Hired</span>
+            {% endif %}
+          </div>
+
+          <!-- Chef Testimony Section -->
+          {% if engagement.status == 'engaged' %}
+            {% if not engagement.chef_testimony %}
+              <div class="testimony-form" id="testimony-form-{{ engagement.id }}">
+                <p style="color:red; font-weight:bold; font-style:italic;">
+                  Note: Failure to submit a testimony within 7 days may result in account restrictions.
+                </p>
+                <label class="form-label fw-semibold">📝 Leave a Testimony</label>
+                <textarea class="form-control testimony-input" rows="3" placeholder="Write your testimony, up to 50 words"></textarea>
+                <button class="btn btn-primary btn-sm mt-2 submit-testimony-btn" data-id="{{ engagement.id }}">
+                  Submit Testimony
+                </button>
+              </div>
+              <div class="alert alert-success mt-2 d-none" id="testimony-success-{{ engagement.id }}">
+                ✅ Testimony submitted successfully!
+              </div>
+            {% else %}
+              <div class="alert alert-success mt-2 mb-0">
+                <strong>✅ Testimony submitted successfully</strong><br>
+                <em>{{ engagement.chef_testimony }}</em>
+              </div>
+            {% endif %}
+          {% endif %}
+
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No job alerts at the moment.
+    </div>
+  {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+  function sendAction(engagementId, actionUrl){
+    $.ajax({
+      url: actionUrl,
+      type: "POST",
+      headers: { "X-CSRFToken": "{{ csrf_token }}" },
+      success: function(response){
+        if(response.success){
+          alert(response.message || "✅ Action completed successfully.");
+          location.reload();
+        } else {
+          alert(response.message || "Something went wrong.");
+        }
+      },
+      error: function(){
+        alert("Error. Please try again.");
+      }
+    });
+  }
+
+  $(".accept-btn").click(function(){ 
+    const id = $(this).data("id");
+    if(confirm("Accept this job engagement?")){
+      sendAction(id, `/engagement/${id}/accept/`);
+    }
+  });
+
+  $(".reject-btn").click(function(){
+    const id = $(this).data("id");
+    if(confirm("Reject this job engagement?")){
+      sendAction(id, `/engagement/${id}/reject/`);
+    }
+  });
+
+  // Submit Chef Testimony via AJAX
+  $(".submit-testimony-btn").click(function(){
+    const id = $(this).data("id");
+    const testimony = $(`#testimony-form-${id} .testimony-input`).val().trim();
+
+    if (!testimony) {
+      alert("Please write your testimony before submitting.");
+      return;
+    }
+
+    // Check if testimony is more than 50 words
+    const wordCount = testimony.split(/\s+/).filter(w => w.length > 0).length;
+    if (wordCount > 50) {
+      alert(`Your testimony is too long. Please limit it to 50 words (currently ${wordCount}).`);
+      return;
+    }
+
+    fetch(`/engagement/${id}/testimony/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: JSON.stringify({ testimony: testimony })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        $(`#testimony-form-${id}`).hide();
+        $(`#testimony-success-${id}`).removeClass("d-none").text("✅ " + data.message);
+      } else {
+        alert(data.message || "Something went wrong.");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error submitting testimony.");
+    });
+  });
+
+});
+</script>
+
+{% include 'footer.html' %}
+</body>

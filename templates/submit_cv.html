@@ -1,0 +1,511 @@
+{% load static %}
+{% load widget_tweaks %}
+
+{% include 'header.html' %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Submit CV | chefs.com.ng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
+<style>
+
+/* RESET OVERFLOW ISSUES */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+}
+
+/* PAGE BACKGROUND */
+body {
+  background: linear-gradient(to bottom right, #e6e9f0, #eef1f5);
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+/* HERO SECTION */
+.cvhome {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 1rem;
+  background: 
+    linear-gradient(rgba(10,10,10,0.35), rgba(10,10,10,0.55)),
+    url("{% static 'pictures/submit_cv.png' %}") center/cover no-repeat;
+  animation: fadeInHero 1.2s ease-in-out;
+}
+
+@keyframes fadeInHero {
+  from { opacity: 0; transform: scale(1.02); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.cvhome h1 {
+  font-size: 2.2rem;
+  line-height: 1.4;
+  max-width: 800px;
+  margin: auto;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+.cvn {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px black;
+}
+
+/* FORM CONTAINER */
+.cvcont {
+  max-width: 1050px;
+  margin: 4rem auto;
+  padding: 0 1.2rem;
+}
+
+.form-card {
+  background: white;
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+  width: 100%;
+}
+
+/* SECTION TITLES */
+.form-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2.2rem;
+  padding-bottom: 7px;
+  text-transform: uppercase;
+  color: #182848;
+  border-bottom: 2px solid #182848;
+}
+
+/* BUTTON */
+.btn-submit {
+  background: #182848;
+  color: white;
+  padding: 14px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  background: #0f1a34;
+}
+
+/* Checkboxes / Radios Fix — Prevent Overflow */
+.form-check-inline {
+  margin-right: 1rem;
+  margin-bottom: 0.4rem;
+  white-space: nowrap;
+}
+
+/* HIGH PAYING BOX */
+.highp {
+  background-color: #182848c7;
+  padding: 1.4rem;
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+}
+
+.activecvv{
+  color: rgb(100, 141, 230) !important;
+  font-weight: bold !important;
+}
+
+/* MOBILE: prefer top of image (prevents cropping heading) and give min-height */
+@media (max-width: 600px) {
+  .cvn {
+    margin-top: 4.5rem !important;              /* keep headline visible */
+    font-size: 1rem !important;
+  }
+
+  .cvhome {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 55vh !important;
+    background-size: cover !important;
+    background-position: top center !important;
+    overflow: hidden !important;
+  }
+
+  /* hero heading */
+  .he1, .cvhome h1 {
+    font-size: 1.45rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 1rem !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* the white card container under the hero */
+  .cvcont, .container {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* TABLET: slightly larger hero height and center the image */
+@media (min-width: 601px) and (max-width: 991px) {
+  .cvhome {
+    background-position: center center !important;
+    min-height: 62vh !important;
+    padding: 1rem 1.2rem !important;
+  }
+  .cvhome h1, .he1 { font-size: 1.8rem !important; }
+}
+
+/* DESKTOP LARGE: keep original behavior */
+@media (min-width: 1200px) {
+  .cvhome { min-height: 70vh !important; background-position: center center !important; }
+  .cvhome h1, .he1 { font-size: 2.2rem !important; }
+}
+
+/* Small extra: ensure no horizontal scroll from any element */
+html, body, .cvcont, .form-card {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+</style>
+
+
+</head>
+
+<body>
+  <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+     
+<!-- HERO SECTION -->
+  <section class="cvhome bg-home">
+    <div class="container">
+      <h5 class="small-title text-uppercase mb-3 cvn">Submit Your CV Now!</h5>
+      <h1 class="fw-bold he1">
+        Please complete all fields carefully and attach your CV.<br>
+        Let us help you find your next culinary opportunity!
+      </h1>
+    </div>
+  </section>
+
+
+  <div class="form-card cvcont" >
+    <h2>Submit Your CV Now!</h2>
+    <p class="text-center">Please complete all the fields and ensure you attach your CV.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- PERSONAL INFORMATION -->
+      <div class="form-section-title">Personal Information</div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Full Name <span class="spann">*</span></label>
+          <input type="text" class="form-control" name="full_name" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Gender <span class="spann">*</span></label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Male"> Male
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Female"> Female
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Prefer not to say"> Prefer not to say
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Date of Birth <span class="spann">*</span></label>
+          <input type="date" class="form-control" name="dob">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Phone Number (WhatsApp preferred) <span class="spann">*</span></label>
+            <input type="tel" id="phone" class="form-control" name="phone">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Email Address <span class="spann">*</span></label>
+        <input type="email" class="form-control" name="email">
+      </div>
+
+      
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Nationality <span class="spann">*</span></label>
+                {{ form.nationality|add_class:"form-select"|attr:"id:country-select" }}
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>State of Residence <span class="spann">*</span></label>
+                {{ form.state|add_class:"form-select"|attr:"id:state-select" }}
+            </div>
+        </div>
+
+      <div class="mb-3">
+        <label>Residential Address <span class="spann">*</span></label>
+        <input type="text" class="form-control" name="address">
+      </div>
+
+      
+
+      <!-- PROFESSIONAL DETAILS -->
+      <div class="form-section-title">Professional Details </div>
+
+      <div class="mb-3">
+        <label>Current Employment Status <span class="spann">*</span></label><br>
+        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="status" value="Employed"> Employed</div>
+        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="status" value="Self-employed"> Self-employed</div>
+        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="status" value="Unemployed"> Unemployed</div>
+        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="status" value="Student"> Student</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Current/Last Job Title <span class="spann">*</span></label>
+          <input type="text" class="form-control" name="job_title">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Years of Culinary Experience <span class="spann">*</span></label>
+          <select class="form-control" name="experience_years">
+            <option>0–1</option><option>2–4</option><option>5–7</option><option>8–10</option><option>10+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Specialty/Area of Expertise <span class="spann">*</span></label><br>
+        {% for skill in specialties %}
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="expertise" value="{{ skill }}"> {{ skill }}
+          </div>
+        {% endfor %}
+        <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="preferred_locations" value="Other"> Other</div>
+        <input type="text" class="form-control mt-2" placeholder="Others (please specify)">
+      </div>
+
+      <div class="mb-3">
+        <label>Type of Establishment You Prefer to Work With <span class="spann">*</span></label><br>
+        <div class="form-check form-check-inline"><input type="checkbox" name="establishment" value="Hotel/Resort"> Hotel/Resort</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="establishment" value="Restaurant/Eatery"> Restaurant/Eatery</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="establishment" value="Private Catering"> Private Catering</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="establishment" value="Event Company"> Event Company</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="establishment" value="School/Institution"> School/Institution</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="establishment" value="Other"> Other</div>
+        <input type="text" class="form-control mt-2" placeholder="Others (please specify)">
+      </div>
+
+      <div class="mb-3">
+        <label>Preferred Work Locations <span class="spann">*</span></label><br>
+        {% for city in locations %}
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="preferred_locations" value="{{ city }}"> {{ city }}
+          </div>
+        {% endfor %}
+        <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="preferred_locations" value="Open to Relocation"> Open to Relocation</div>
+        <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="preferred_locations" value="Open to Other"> Other</div>
+        <input type="text" class="form-control mt-2" placeholder="Other (please specify)">
+      </div>
+
+      <!-- EDUCATION & TRAINING -->
+      <div class="form-section-title">Education & Training</div>
+
+      <div class="mb-3">
+        <label>Highest Qualification</label>
+        <input type="text" class="form-control" name="qualification">
+      </div>
+
+      <div class="mb-3">
+        <label>Culinary School or Certification (if any)</label>
+        <input type="text" class="form-control" name="culinary_school">
+      </div>
+
+      <div class="mb-3">
+        <label>Additional Skills/Training </label>
+        <input type="text" class="form-control" name="skills">
+      </div>
+
+      <!-- WORK HISTORY -->
+      <div class="form-section-title">Work History </div>
+
+      <div class="mb-3">
+        <label>Last Employer <span class="spann">*</span></label>
+        <input type="text" class="form-control" name="last_employer">
+      </div>
+
+      <div class="mb-3">
+        <label>Position Held <span class="spann">*</span></label>
+        <input type="text" class="form-control" name="position_held">
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Start Date <span class="spann">*</span></label>
+          <input type="date" class="form-control" name="start_date">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>End Date <span class="spann">*</span></label>
+          <input type="date" class="form-control" name="end_date">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Key Responsibilities <span class="spann">*</span></label>
+        <textarea class="form-control" rows="3" name="responsibilities"></textarea>
+      </div>
+
+      <!-- CONTRACT TERM -->
+      <div class="form-section-title">Contract Term </div>
+      <div><label>Choose contract term  <span class="spann">*</span></label></div>
+      <div class="form-check form-check-inline"><input type="checkbox" name="contract" value="Temporary"> Temporary</div>
+      <div class="form-check form-check-inline"><input type="checkbox" name="contract" value="Permanent"> Permanent</div>
+      <div class="form-check form-check-inline"><input type="checkbox" name="contract" value="Both"> Both</div>
+
+      <div class="mb-3 mt-3">
+        <label>Upload CV/Resume (PDF or Word) <span class="spann">*</span></label>
+        <input type="file" class="form-control" name="cv">
+      </div>
+
+      <!-- REFERENCE -->
+      <div class="form-section-title">Reference </div>
+
+      <div class="mb-3">
+        <label>Name of Referee <span class="spann">*</span></label>
+        <input type="text" class="form-control" name="referee_name">
+      </div>
+      <div class="mb-3">
+        <label>Relationship <span class="spann">*</span></label>
+        <input type="text" class="form-control" name="relationship">
+      </div>
+      <div class="mb-3">
+        <label>Phone Number/Email <span class="spann">*</span></label>
+        <input type="text" class="form-control" name="referee_contact">
+      </div>
+
+      <!-- JOB ALERTS -->
+      <div class="form-section-title">Job Alerts & Notifications </div>
+
+      <div class="mb-3">
+        <label>Would you like to receive job alerts via: <span class="spann">*</span></label><br>
+        <div class="form-check form-check-inline"><input type="checkbox" name="alerts" value="Email"> Email</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="alerts" value="WhatsApp"> WhatsApp</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="alerts" value="SMS"> SMS</div>
+      </div>
+
+      <div class="mb-3 highp">
+        <p>Would you like to receive priority notifications for exclusive, high-paying chef job placements that match your experience and career goals?</p>
+        <p>Please select your preferred job type(s):</p>
+        <label>Exclusive High-Paying Job Opportunities</label><br>
+        <div class="form-check form-check-inline"><input type="checkbox" name="job_type" value="Relief Chef"> Relief Chef</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="job_type" value="Permanent Chef"> Permanent Chef</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="job_type" value="Private Chef"> Private Chef</div>
+        <div class="form-check form-check-inline"><input type="checkbox" name="job_type" value="All"> All of the above</div>
+      </div>
+
+      <!-- DECLARATION -->
+      <div class="form-section-title">Declaration</div>
+      <p>
+        I hereby declare that the information provided above is true and accurate to the best of my knowledge. I understand that Chef James & Associates (CJA) reserves the right to verify my details and contact me regarding available opportunities.
+      </p>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Signature <span class="spann">*</span></label>
+          <input type="text" class="form-control" name="signature">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Date <span class="spann">*</span></label>
+          <input type="date" class="form-control" name="date">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Message (if any)</label>
+        <textarea class="form-control" rows="3" name="message"></textarea>
+      </div>
+
+        <!-- reCAPTCHA -->
+        <div class="mb-3">
+            {{ form.captcha }}
+            {% if form.captcha.errors %}
+                <div class="text-danger small">You must complete the CAPTCHA to continue.</div>
+            {% else %}
+                <h5 class="caph5">You must complete the <b>CAPTCHA</b> to continue.</h5>
+            {% endif %}
+        </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  {% include 'footer.html' %}
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // --- Initialize Phone Input with intl-tel-input ---
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        preferredCountries: ["ng","gb","us","ca"], // adjust as needed
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+    });
+
+    // --- Dynamic Country -> State Dropdown ---
+    const countrySelect = document.getElementById("country-select");
+    const stateSelect = document.getElementById("state-select");
+
+    countrySelect.addEventListener("change", function() {
+        const countryId = this.value;
+        fetch(`/ajax/load-states/?country_id=${countryId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Clear previous state options
+                stateSelect.innerHTML = '';
+                // Add a default placeholder
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.text = "Select a state";
+                stateSelect.appendChild(defaultOption);
+
+                // Populate new state options
+                data.forEach(state => {
+                    const option = document.createElement("option");
+                    option.value = state.id;
+                    option.text = state.name;
+                    stateSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error loading states:', error));
+    });
+});
+</script>
+
+</body>
+</html>

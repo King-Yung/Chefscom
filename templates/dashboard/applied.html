@@ -1,0 +1,194 @@
+{% include 'header.html' %}
+<title>Applications | Chefs.com</title>
+
+<style>
+.bodys { background-color: grey; padding-top: 3rem !important; }
+.contaa { background-color: rgb(21, 21, 21); padding-block: 0; }
+h4 { color: white !important; text-shadow: 2px 2px 3px black; text-align: center; font-size: 2rem !important; }
+.btnback { margin-top: 8rem !important; }
+.application-card { background: rgba(255, 255, 255, 0.1); color: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.badge { font-size: 0.9rem; padding: 5px 10px; border-radius: 5px; }
+.contact-info { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin-top: 10px; }
+.testimony-box { background: rgba(0,0,0,0.4); border-radius: 8px; padding: 10px; margin-top: 10px; }
+textarea.form-control { resize: none; }
+.pnote { color: yellow !important; }
+</style>
+
+<body class="bodys">
+
+<div class="container">
+  <a href="javascript:history.back()" class="btn btn-primary btnback mb-3">← Back</a>
+  <h4 class="text-center mb-4">📋 Job Applications</h4>
+
+  {% if applications %}
+  <div class="list-group contaa">
+    {% for app in applications %}
+      <div class="list-group-item application-card mb-3 p-3" id="app-{{ app.id }}">
+        <div class="d-flex justify-content-between">
+          <h4>{{ app.chef_full_name }}</h4>
+          <small>{{ app.applied_date|date:"M d, Y" }}</small>
+        </div>
+
+        <p>
+          {% if app.type == "job" %}
+            <strong>Position Applied:</strong> {{ app.job_title }}<br>
+            <strong>Type:</strong> Standard Job
+          {% elif app.type == "job_vacancy" %}
+            <strong>Position Applied:</strong> {{ app.job_position }}<br>
+            <strong>Type:</strong> Job Vacancy Post
+          {% else %}
+            <strong>Position Applied:</strong> {{ app.request_type|join:", "|capfirst }}<br>
+            <strong>Type:</strong> Need a Chef Post
+          {% endif %}
+        </p>
+
+
+        <p><em>{{ app.message|default:"No message provided." }}</em></p>
+
+        <div class="mb-2">
+          {% if app.status == "Pending" %}
+            <button class="btn btn-sm btn-success accept-btn" data-id="{{ app.id }}">Accept</button>
+            <button class="btn btn-sm btn-danger reject-btn" data-id="{{ app.id }}">Reject</button>
+          {% elif app.status == "Accepted" %}
+            <span class="badge bg-success">Accepted</span>
+          {% elif app.status == "Rejected" %}
+            <span class="badge bg-danger">Rejected</span>
+          {% elif app.status == "Hired" %}
+            <span class="badge bg-info text-dark">Hired</span>
+          {% endif %}
+        </div>
+
+        {% if app.status == "Accepted" %}
+        <div class="contact-info">
+          <p><strong>📞 Phone:</strong> {{ app.chef_phone|default:"Not provided" }}</p>
+          <p><strong>📧 Email:</strong> {{ app.chef_username|default:"Not provided" }}</p>
+
+          <p class="pnote"><strong>Note:</strong> Complete negotiation with chef before you click hire.</p>
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary btn-sm hire-btn" data-id="{{ app.id }}">Hire Chef</button>
+            <button class="btn btn-danger btn-sm delete-btn" data-id="{{ app.id }}">Delete Application</button>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if app.status == "Hired" %}
+        <div class="testimony-box">
+          {% if not app.employer_testimony %}
+          <p class="pnote">📝 You must submit a testimony within <strong>7 days</strong> or your account will be restricted.</p>
+          <form class="testimony-form" data-id="{{ app.id }}">
+            {% csrf_token %}
+            <textarea name="testimony" rows="3" class="form-control testimony-input" placeholder="Write your testimony, not less than 50 words."></textarea>
+            <button type="submit" class="btn btn-primary mt-2">Submit Testimony</button>
+          </form>
+          {% else %}
+          <div class="alert alert-success mt-2 mb-0">
+            <strong>✅ Your testimony:</strong><br>
+            <em>{{ app.employer_testimony }}</em>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-info text-center">No applications yet.</div>
+  {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+  // --- General actions (accept, reject, hire, delete)
+  function sendAction(appId, action) {
+    const urls = {
+      accept: `/application/${appId}/accept/`,
+      reject: `/application/${appId}/reject/`,
+      hire: `/application/${appId}/hire/`,
+      delete: `/application/${appId}/delete/`,
+    };
+
+    $.ajax({
+      url: urls[action],
+      type: "POST",
+      headers: { "X-CSRFToken": "{{ csrf_token }}" },
+      success: function(response){
+        if(response.success){
+          alert(response.message);
+          location.reload();
+        } else {
+          alert(response.message || "Something went wrong.");
+        }
+      },
+      error: function(xhr){
+        if(xhr.responseJSON && xhr.responseJSON.message){
+          alert(xhr.responseJSON.message);
+        } else {
+          alert("Successful.");
+          location.reload(); 
+        }
+      }
+    });
+  }
+
+  // --- Button handlers ---
+  $(".accept-btn").click(function(){
+    const id = $(this).data("id");
+    if(confirm("Accept this chef application?")) sendAction(id, "accept");
+  });
+
+  $(".reject-btn").click(function(){
+    const id = $(this).data("id");
+    if(confirm("Reject this chef application?")) sendAction(id, "reject");
+  });
+
+  $(".hire-btn").click(function(){
+    const id = $(this).data("id");
+    if(confirm("Confirm hiring this chef?")) sendAction(id, "hire");
+  });
+
+  $(".delete-btn").click(function(){
+    const id = $(this).data("id");
+    if(confirm("❌ Delete this application permanently?")) sendAction(id, "delete");
+  });
+
+  // --- Testimony submission ---
+  $(".testimony-form").on("submit", function(e){
+    e.preventDefault();
+    const form = $(this);
+    const appId = form.data("id");
+    const testimony = form.find("textarea[name='testimony']").val();
+
+    if (testimony.trim().split(/\s+/).length < 50) {
+      alert("❌ Your testimony must be at least 50 words.");
+      return;
+    }
+
+    $.ajax({
+      url: `/application/${appId}/submit_testimonyy/`,
+      type: "POST",
+      data: {
+        testimony: testimony,
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      },
+      success: function(response){
+        if (response.success) {
+          alert("✅ " + response.message);
+          location.reload();
+        } else {
+          alert("❌ " + (response.message || "An error occurred."));
+        }
+      },
+      error: function(){
+        alert("❌ Something went wrong. Please try again.");
+      }
+    });
+  });
+
+});
+</script>
+
+{% include 'footer.html' %}
+</body>

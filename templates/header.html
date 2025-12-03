@@ -1,0 +1,305 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Themesdesign" />
+
+    <link rel="shortcut icon" href="{% static 'pictures/logomain.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<style>
+
+/* =====================
+   GLOBAL RESET
+===================== */
+a, a:hover, a:focus, a:active { text-decoration: none !important; }
+ul, li { list-style: none !important; margin: 0; padding: 0; }
+
+/* =====================
+   HEADER & ANIMATION
+===================== */
+#topnav { transition: all 0.35s ease-in-out; }
+#topnav.scrolled {
+    background: white;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+/* Desktop submenu animation */
+.navigation-menu .submenu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease-in-out;
+}
+.navigation-menu .has-submenu:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+
+/* Mobile menu container */
+.mobile-menu {
+    display: none;
+    background: #fff;
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+    animation: slideDown 0.3s ease-out;
+}
+.mobile-menu.open { display: block; }
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Burger icon */
+.lines span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #000;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+/* Hide mobile profile by default */
+.proimg { display: none; }
+
+/* =====================
+   MOBILE DROPDOWN
+===================== */
+.has-submenu-mobile > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* mobile hidden submenu */
+.submenu-mobile {
+    display: none;
+    padding-left: 15px;
+}
+.submenu-mobile.open {
+    display: block;
+    animation: fadeIn 0.25s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================
+   MEDIA QUERIES
+===================== */
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .tagline { display: none !important; }
+    .proimg { display: inline-block !important; }
+    .logoo { order: 1 !important; }
+    .menu-extras { order: 2 !important; }
+}
+
+/* TABLET */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .tagline { display: none !important; }
+    .proimg { display: inline-block !important; width: 40px; height: 40px; }
+}
+
+/* SMALL DESKTOP */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .proimg { width: 45px !important; height: 45px !important; }
+}
+
+</style>
+</head>
+
+<header id="topnav" class="defaultscroll">
+
+    <!-- TOP BAR (Desktop only) -->
+    <div class="tagline d-none d-lg-block">
+        <div class="container d-flex justify-content-between align-items-center tagli">
+
+            <div class="d-flex gap-4 text-white">
+                <span><i class="mdi mdi-phone-classic"></i> +234 806 498 1375</span>
+                <a href="#" class="text-white"><i class="mdi mdi-email"></i> Support@chefs.com</a>
+            </div>
+
+            <!-- Desktop auth buttons -->
+            <ul class="list-unstyled d-flex align-items-center gap-4 mb-0 text-white topbar-list">
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url user.chefprofile|yesno:'chef_dashboard,employer_dashboard' %}"
+                       class="text-white d-flex align-items-center">
+                        <img 
+                            src="{% if user.chefprofile and user.chefprofile.profile_picture %}{{ user.chefprofile.profile_picture.url }}
+                                 {% elif user.employerprofile and user.employerprofile.profile_picture %}{{ user.employerprofile.profile_picture.url }}
+                                 {% else %}{% static 'pictures/profile.png' %}{% endif %}"
+                            class="me-2"
+                            style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                        DASHBOARD
+                    </a>
+                </li>
+
+                <li><a href="{% url 'logout' %}" class="text-white"><i class="mdi mdi-logout"></i> LOGOUT</a></li>
+
+                {% else %}
+                <li><a href="{% url 'login' %}" class="text-white"><i class="mdi mdi-account"></i> LOGIN</a></li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle text-white" data-bs-toggle="dropdown">
+                        <i class="mdi mdi-account-plus"></i> SIGN UP
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'signup' %}">Chef Register</a></li>
+                        <li><a class="dropdown-item" href="{% url 'signup_employer' %}">Employer Register</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center py-2">
+
+            <!-- Logo + Mobile profile -->
+            <div class="d-flex align-items-center logoo">
+
+                {% if user.is_authenticated %}
+                <img 
+                    src="{% if user.chefprofile and user.chefprofile.profile_picture %}{{ user.chefprofile.profile_picture.url }}
+                         {% elif user.employerprofile and user.employerprofile.profile_picture %}{{ user.employerprofile.profile_picture.url }}
+                         {% else %}{% static 'pictures/profile.png' %}{% endif %}"
+                    class="d-lg-none me-3 proimg"
+                    style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
+                {% endif %}
+
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'pictures/logomain.png' %}" height="50">
+                </a>
+
+            </div>
+
+            <!-- MOBILE MENU BUTTON -->
+            <button class="navbar-toggler d-lg-none menu-extras" type="button" onclick="toggleMobileMenu()">
+                <div class="lines"><span></span><span></span><span></span></div>
+            </button>
+
+            <!-- DESKTOP MENU -->
+            <nav id="navigation" class="d-none d-lg-block">
+                <ul class="navigation-menu d-flex gap-4 mb-0">
+
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'chefs_hub' %}">Chefs Hub</a></li>
+                    <li><a href="{% url 'job_vacancies' %}">Job Vacancies</a></li>
+
+                    <!-- DESKTOP DROPDOWN -->
+                    <li class="has-submenu">
+                        <a href="#">Recruitment</a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'need_job' %}">I Need a Job</a></li>
+                            <li><a href="{% url 'need_staff' %}">I Need a Chef</a></li>
+                            <li><a href="{% url 'submit_cv' %}">Submit CV</a></li>
+                            <li><a href="{% url 'submit_job' %}">Submit Job Vacancy</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                </ul>
+            </nav>
+
+        </div>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="mobile-menu d-lg-none">
+            <ul class="list-unstyled">
+
+                <li class="text-uppercase fw-bold text-secondary px-3 mt-3">Account</li>
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url user.chefprofile|yesno:'chef_dashboard,employer_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Chef Signup</a></li>
+                <li><a href="{% url 'signup_employer' %}">Employer Signup</a></li>
+                {% endif %}
+
+                <hr>
+
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'chefs_hub' %}">Chefs Hub</a></li>
+                <li><a href="{% url 'job_vacancies' %}">Job Vacancies</a></li>
+
+                <!-- MOBILE DROPDOWN FIX -->
+                <li class="has-submenu-mobile">
+                    <a href="#">Recruitment ▾</a>
+
+                    <ul class="submenu-mobile">
+                        <li><a href="{% url 'need_job' %}">I Need a Job</a></li>
+                        <li><a href="{% url 'need_staff' %}">I Need a Chef</a></li>
+                        <li><a href="{% url 'submit_cv' %}">Submit CV</a></li>
+                        <li><a href="{% url 'submit_job' %}">Submit Job Vacancy</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- =====================
+     JAVASCRIPT
+===================== -->
+<script>
+function toggleMobileMenu() {
+    document.getElementById("mobileMenu").classList.toggle("open");
+}
+
+/* Mobile submenu toggle */
+document.querySelectorAll('.has-submenu-mobile > a').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const submenu = this.parentElement.querySelector('.submenu-mobile');
+        submenu.classList.toggle('open');
+    });
+});
+
+/* Sticky header on scroll */
+window.addEventListener("scroll", function() {
+    let header = document.getElementById("topnav");
+    if (window.scrollY > 50) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+});
+</script>
+
+</html>

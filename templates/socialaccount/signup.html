@@ -1,0 +1,94 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complete Sign Up | chefs.com.ng</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #182848, #007bff);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+    .card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 0;
+    }
+    .btn-primary:hover {
+      background-color: #0056d2;
+    }
+
+    a{
+        text-decoration: none !important;
+    }
+
+    a:hover{
+        color: black !important;
+        transition: all ease-in-out 0.3ms;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4">
+          <div class="text-center mb-3">
+            <img src="{% static 'pictures/logomain.png' %}" alt="ChefHub" width="80">
+            <h4 class="mt-3">Complete Your Signup</h4>
+          </div>
+
+          {% if form.errors %}
+            <div class="alert alert-danger">
+              {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                  <div>{{ error }}</div>
+                {% endfor %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if account %}
+            <p class="text-center text-danger">
+              An account already exists with this email address ({{ account.email }}).<br>
+              Please <a href="{% url 'account_login' %}" class="text-primary">sign in</a> first, then connect your Google account.
+            </p>
+          {% endif %}
+
+          <form method="post" action="{% url 'socialaccount_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100 mt-2">Complete Sign Up</button>
+          </form>
+
+          <p class="text-center mt-3 mb-0">
+            <small>Already have an account?</small>
+            <a href="{% url 'account_login' %}" class="text-primary fw-bold">Sign In</a>
+            
+          </p>
+
+          <div class="container text-center">
+            <small>Go to</small>
+            <a href="{% url 'home' %}" class="text-primary fw-bold">Home</a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
