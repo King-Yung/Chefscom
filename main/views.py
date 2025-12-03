@@ -3333,3 +3333,7 @@ def success_stories(request):
     testimonies = TestimonyLog.objects.select_related('user').all().order_by('-created_at')
 
     return render(request, "home.html", {"testimonies": testimonies})
+
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
