@@ -4,166 +4,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="Themesdesign" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="Themesdesign" />
 
-    <link rel="shortcut icon" href="{% static 'pictures/logomain.png' %}">
+<link rel="shortcut icon" href="{% static 'pictures/logomain.png' %}">
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}" />
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/selectize.css' %}" />
 
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}" />
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}" />
+<link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}" />
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 <style>
-
-/* =====================
-   GLOBAL RESET
-===================== */
+/* ===================== GLOBAL RESET ===================== */
 a, a:hover, a:focus, a:active { text-decoration: none !important; }
 ul, li { list-style: none !important; margin: 0; padding: 0; }
 
-/* =====================
-   HEADER & ANIMATION
-===================== */
+/* ===================== HEADER & ANIMATION ===================== */
 #topnav { transition: all 0.35s ease-in-out; }
-#topnav.scrolled {
-    background: white;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-}
+#topnav.scrolled { background: white; box-shadow: 0 4px 18px rgba(0,0,0,0.08); }
+.navigation-menu .submenu { opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.25s ease-in-out; }
+.navigation-menu .has-submenu:hover .submenu { opacity: 1; visibility: visible; transform: translateY(0px); }
+.aii{ font-size: 1rem !important; line-height: 1rem !important; }
 
-/* Desktop submenu animation */
-.navigation-menu .submenu {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.25s ease-in-out;
-}
-.navigation-menu .has-submenu:hover .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0px);
-}
-
-/* Mobile menu container */
-.mobile-menu {
-    display: none;
-    background: #fff;
-    border-top: 1px solid #eee;
-    padding: 10px 0;
-    animation: slideDown 0.3s ease-out;
-}
+/* Mobile menu */
+.mobile-menu { display: none; background: #fff; border-top: 1px solid #eee; padding: 10px 0; animation: slideDown 0.3s ease-out; }
 .mobile-menu.open { display: block; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* Hamburger / Menu Icon Animation */
+.lines span { display: block; width: 25px; height: 3px; background: #000; margin: 5px 0; border-radius: 5px; transition: all 0.4s ease; }
+.navbar-toggler.open .lines span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.navbar-toggler.open .lines span:nth-child(2) { opacity: 0; }
+.navbar-toggler.open .lines span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* Burger icon */
-.lines span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background: #000;
-    margin: 5px 0;
-    border-radius: 5px;
-}
-
-/* Hide mobile profile by default */
+/* Hide profile image */
 .proimg { display: none; }
 
-/* =====================
-   MOBILE DROPDOWN
-===================== */
-.has-submenu-mobile > a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+.has-submenu-mobile > a { display: flex; justify-content: space-between; align-items: center; }
+.submenu-mobile { display: none; padding-left: 15px; }
+.submenu-mobile.open { display: block; animation: fadeIn 0.25s ease-in-out; }
+.mobile-menu ul li a { padding: 10px 0; display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
-/* mobile hidden submenu */
-.submenu-mobile {
-    display: none;
-    padding-left: 15px;
-}
-.submenu-mobile.open {
-    display: block;
-    animation: fadeIn 0.25s ease-in-out;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* Media Queries */
+@media (max-width: 600px) { .tagline { display: none !important; } .logoo { order: 1 !important; } .menu-extras { order: 2 !important; } }
+@media (min-width: 601px) and (max-width: 1024px) { .tagline { display: none !important; } }
 
-/* =====================
-   MEDIA QUERIES
-===================== */
-
-/* MOBILE */
-@media (max-width: 600px) {
-    .tagline { display: none !important; }
-    .proimg { display: inline-block !important; }
-    .logoo { order: 1 !important; }
-    .menu-extras { order: 2 !important; }
+/* ===================== AI SIDE BUTTON ===================== */
+#open-cja-ai {
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    z-index: 9999;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
 }
+#open-cja-ai:hover { transform: scale(1.1); }
 
-/* TABLET */
-@media (min-width: 601px) and (max-width: 1024px) {
-    .tagline { display: none !important; }
-    .proimg { display: inline-block !important; width: 40px; height: 40px; }
+/* AI Modal */
+body.modal-open { overflow: hidden; position: fixed; width: 100%; touch-action: none; }
+#cja-ai-modal {
+    display: none; /* hidden by default */
+    position: fixed;
+    right: 20px;
+    bottom: 120px;
+    width: 350px;
+    max-width: 90%;
+    height: 500px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+    z-index: 10000;
+    font-family: sans-serif;
+    flex-direction: column;
 }
-
-/* SMALL DESKTOP */
-@media (min-width: 1025px) and (max-width: 1440px) {
-    .proimg { width: 45px !important; height: 45px !important; }
-}
-
+#cja-ai-modal-header { padding:10px; background:#007bff; color:#fff; border-radius:10px 10px 0 0; display:flex; justify-content:space-between; align-items:center; }
+#cja-ai-messages { padding:10px; flex:1; overflow-y:auto; }
+#cja-ai-input-container { display:flex; border-top:1px solid #eee; }
+#cja-ai-input { flex:1; border:none; padding:10px; outline:none; border-radius:0; }
+#cja-ai-send { background:#007bff; color:#fff; border:none; padding:10px 15px; cursor:pointer; transition: background 0.2s ease-in-out; }
+#cja-ai-send:hover { background:#0056b3; }
 </style>
 </head>
 
+<body>
 <header id="topnav" class="defaultscroll">
-
-    <!-- TOP BAR (Desktop only) -->
+    <!-- TOP BAR -->
     <div class="tagline d-none d-lg-block">
         <div class="container d-flex justify-content-between align-items-center tagli">
-
             <div class="d-flex gap-4 text-white">
                 <span><i class="mdi mdi-phone-classic"></i> +234 806 498 1375</span>
                 <a href="#" class="text-white"><i class="mdi mdi-email"></i> Support@chefs.com</a>
             </div>
-
-            <!-- Desktop auth buttons -->
             <ul class="list-unstyled d-flex align-items-center gap-4 mb-0 text-white topbar-list">
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url user.chefprofile|yesno:'chef_dashboard,employer_dashboard' %}"
-                       class="text-white d-flex align-items-center">
-                        <img 
-                            src="{% if user.chefprofile and user.chefprofile.profile_picture %}{{ user.chefprofile.profile_picture.url }}
-                                 {% elif user.employerprofile and user.employerprofile.profile_picture %}{{ user.employerprofile.profile_picture.url }}
-                                 {% else %}{% static 'pictures/profile.png' %}{% endif %}"
-                            class="me-2"
-                            style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
-                        DASHBOARD
-                    </a>
+                    <a href="{% url user.chefprofile|yesno:'chef_dashboard,employer_dashboard' %}" class="text-white">DASHBOARD</a>
                 </li>
-
                 <li><a href="{% url 'logout' %}" class="text-white"><i class="mdi mdi-logout"></i> LOGOUT</a></li>
-
                 {% else %}
                 <li><a href="{% url 'login' %}" class="text-white"><i class="mdi mdi-account"></i> LOGIN</a></li>
-
                 <li class="dropdown">
                     <a class="dropdown-toggle text-white" data-bs-toggle="dropdown">
                         <i class="mdi mdi-account-plus"></i> SIGN UP
@@ -175,48 +134,28 @@ ul, li { list-style: none !important; margin: 0; padding: 0; }
                 </li>
                 {% endif %}
             </ul>
-
         </div>
     </div>
 
     <!-- MAIN NAVBAR -->
     <div class="container">
-
         <div class="d-flex justify-content-between align-items-center py-2">
-
-            <!-- Logo + Mobile profile -->
             <div class="d-flex align-items-center logoo">
-
-                {% if user.is_authenticated %}
-                <img 
-                    src="{% if user.chefprofile and user.chefprofile.profile_picture %}{{ user.chefprofile.profile_picture.url }}
-                         {% elif user.employerprofile and user.employerprofile.profile_picture %}{{ user.employerprofile.profile_picture.url }}
-                         {% else %}{% static 'pictures/profile.png' %}{% endif %}"
-                    class="d-lg-none me-3 proimg"
-                    style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
-                {% endif %}
-
-                <a href="{% url 'home' %}">
-                    <img src="{% static 'pictures/logomain.png' %}" height="50">
-                </a>
-
+                <a href="{% url 'home' %}"><img src="{% static 'pictures/logomain.png' %}" height="50"></a>
             </div>
 
             <!-- MOBILE MENU BUTTON -->
-            <button class="navbar-toggler d-lg-none menu-extras" type="button" onclick="toggleMobileMenu()">
+            <button class="navbar-toggler d-lg-none menu-extras" type="button" id="menu-toggle">
                 <div class="lines"><span></span><span></span><span></span></div>
             </button>
 
             <!-- DESKTOP MENU -->
             <nav id="navigation" class="d-none d-lg-block">
                 <ul class="navigation-menu d-flex gap-4 mb-0">
-
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'chefs_hub' %}">Chefs Hub</a></li>
                     <li><a href="{% url 'job_vacancies' %}">Job Vacancies</a></li>
-
-                    <!-- DESKTOP DROPDOWN -->
                     <li class="has-submenu">
                         <a href="#">Recruitment</a>
                         <ul class="submenu">
@@ -226,20 +165,14 @@ ul, li { list-style: none !important; margin: 0; padding: 0; }
                             <li><a href="{% url 'submit_job' %}">Submit Job Vacancy</a></li>
                         </ul>
                     </li>
-
                     <li><a href="{% url 'contact' %}">Contact</a></li>
-
                 </ul>
             </nav>
-
         </div>
 
         <!-- MOBILE MENU -->
         <div id="mobileMenu" class="mobile-menu d-lg-none">
             <ul class="list-unstyled">
-
-                <li class="text-uppercase fw-bold text-secondary px-3 mt-3">Account</li>
-
                 {% if user.is_authenticated %}
                 <li><a href="{% url user.chefprofile|yesno:'chef_dashboard,employer_dashboard' %}">Dashboard</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -248,18 +181,13 @@ ul, li { list-style: none !important; margin: 0; padding: 0; }
                 <li><a href="{% url 'signup' %}">Chef Signup</a></li>
                 <li><a href="{% url 'signup_employer' %}">Employer Signup</a></li>
                 {% endif %}
-
                 <hr>
-
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'chefs_hub' %}">Chefs Hub</a></li>
                 <li><a href="{% url 'job_vacancies' %}">Job Vacancies</a></li>
-
-                <!-- MOBILE DROPDOWN FIX -->
                 <li class="has-submenu-mobile">
                     <a href="#">Recruitment ▾</a>
-
                     <ul class="submenu-mobile">
                         <li><a href="{% url 'need_job' %}">I Need a Job</a></li>
                         <li><a href="{% url 'need_staff' %}">I Need a Chef</a></li>
@@ -267,23 +195,36 @@ ul, li { list-style: none !important; margin: 0; padding: 0; }
                         <li><a href="{% url 'submit_job' %}">Submit Job Vacancy</a></li>
                     </ul>
                 </li>
-
                 <li><a href="{% url 'contact' %}">Contact</a></li>
-
             </ul>
         </div>
-
     </div>
 </header>
 
+<!-- CJA AI Side Button -->
+<button id="open-cja-ai" class="aii">CJA <br> AI</button>
 
-<!-- =====================
-     JAVASCRIPT
-===================== -->
+<!-- CJA AI Modal -->
+<div id="cja-ai-modal">
+    <div id="cja-ai-modal-header">
+        <span>CJA AI Assistant</span>
+        <button id="close-cja-ai">×</button>
+    </div>
+    <div id="cja-ai-messages"></div>
+    <div id="cja-ai-input-container">
+        <input type="text" id="cja-ai-input" placeholder="Ask a question...">
+        <button id="cja-ai-send">Send</button>
+    </div>
+</div>
+
 <script>
-function toggleMobileMenu() {
-    document.getElementById("mobileMenu").classList.toggle("open");
-}
+/* Mobile Menu Toggle + Hamburger Animation */
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    menuToggle.classList.toggle('open');
+});
 
 /* Mobile submenu toggle */
 document.querySelectorAll('.has-submenu-mobile > a').forEach(item => {
@@ -294,12 +235,97 @@ document.querySelectorAll('.has-submenu-mobile > a').forEach(item => {
     });
 });
 
-/* Sticky header on scroll */
-window.addEventListener("scroll", function() {
-    let header = document.getElementById("topnav");
-    if (window.scrollY > 50) header.classList.add("scrolled");
+/* Sticky header */
+window.addEventListener("scroll", () => {
+    const header = document.getElementById("topnav");
+    if(window.scrollY > 50) header.classList.add("scrolled");
     else header.classList.remove("scrolled");
+});
+
+/* CJA AI Modal */
+const cjaButton = document.getElementById('open-cja-ai');
+const cjaModal = document.getElementById('cja-ai-modal');
+const cjaClose = document.getElementById('close-cja-ai');
+
+function openCja() {
+    cjaModal.style.display = 'flex';
+    cjaButton.style.display = 'none';
+    document.body.classList.add('modal-open');
+}
+
+function closeCja() {
+    cjaModal.style.display = 'none';
+    cjaButton.style.display = 'block';
+    document.body.classList.remove('modal-open');
+}
+
+cjaButton.addEventListener('click', openCja);
+cjaClose.addEventListener('click', closeCja);
+
+/* Close AI modal when clicking outside */
+window.addEventListener('click', function(e) {
+    if(e.target !== cjaModal && !cjaModal.contains(e.target) && e.target !== cjaButton){
+        closeCja();
+    }
+});
+
+/* CJA AI Chat with streaming */
+document.getElementById('cja-ai-send').addEventListener('click', async () => {
+    const input = document.getElementById('cja-ai-input');
+    const messageContainer = document.getElementById('cja-ai-messages');
+    const question = input.value.trim();
+    if(!question) return;
+
+    // User message
+    const userMsg = document.createElement('div');
+    userMsg.style.textAlign = 'right';
+    userMsg.style.marginBottom = '5px';
+    userMsg.style.color = 'blue';
+    userMsg.innerHTML = `<b>You:</b> ${question}`;
+    messageContainer.appendChild(userMsg);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+    input.value = '';
+
+    // AI message container
+    const aiMsg = document.createElement('div');
+    aiMsg.style.textAlign = 'left';
+    aiMsg.style.color = 'green';
+    messageContainer.appendChild(aiMsg);
+
+    try {
+        const response = await fetch("{% url 'ask_ai' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ question })
+        });
+
+        // Stream reading
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+        while(!done) {
+            const { value, done: doneReading } = await reader.read();
+            done = doneReading;
+            if(value) {
+                aiMsg.innerHTML += decoder.decode(value);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        }
+    } catch(err) {
+        aiMsg.style.color = 'red';
+        aiMsg.innerHTML = `<b>Error:</b> ${err}`;
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+});
+
+// Enter key triggers send
+document.getElementById('cja-ai-input').addEventListener('keypress', function(e){
+    if(e.key === 'Enter'){ document.getElementById('cja-ai-send').click(); }
 });
 </script>
 
+</body>
 </html>

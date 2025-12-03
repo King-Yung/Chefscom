@@ -189,6 +189,8 @@ ADMINS = [
 OPENAI_API_KEY = config('OPENAI_API_KEY')
 # DEFAULT_FROM_EMAIL = 'no-reply@chefscom.com'
 
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

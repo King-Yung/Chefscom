@@ -18,7 +18,7 @@ import json
 import ast
 import threading
 from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import JsonResponse, StreamingHttpResponse
 from django.contrib.admin.models import LogEntry, CHANGE
 from cities_light.models import Country, Region, City
 from smtplib import SMTPException
@@ -43,7 +43,8 @@ from django.core.mail import BadHeaderError
 from .forms import EmailBasedPasswordResetForm
 from django.db.models import Prefetch
 import uuid
-import openai
+import os
+from huggingface_hub import InferenceClient
 from django.db.models import F
 import feedparser
 from django.core.cache import cache
@@ -3245,43 +3246,43 @@ class reset_password_view(PasswordResetView):
 
 
 
-openai.api_key = settings.OPENAI_API_KEY
+
+client = InferenceClient(token=os.getenv("HF_API_TOKEN"))
 
 @csrf_exempt
 def ask_ai(request):
-    if request.method == "POST":
-        try:
-            body = json.loads(request.body)
-        except json.JSONDecodeError:
-            return JsonResponse({"answer": "Invalid JSON."})
+    if request.method != "POST":
+        return JsonResponse({"answer": "Invalid request method. Use POST."})
 
-        question = body.get("question")
-        if not question:
-            return JsonResponse({"answer": "Please ask a question."})
+    try:
+        body = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"answer": "Invalid JSON."})
 
-        user = request.user
-        # Determine user type and verification status
-        if hasattr(user, 'chefprofile'):
-            profile_type = 'chef'
-            profile = user.chefprofile
-            is_verified = profile.is_verified_2
-        elif hasattr(user, 'employerprofile'):
-            profile_type = 'employer'
-            profile = user.employerprofile
-            is_verified = profile.is_verified_2
-        else:
-            profile_type = 'guest'
-            is_verified = False
+    question = body.get("question")
+    if not question:
+        return JsonResponse({"answer": "Please ask a question."})
 
-        # Gather subscription info if available
-        subscription_info = ""
-        if profile_type != 'guest':
-            plan = getattr(profile, 'subscription_plan', 'No active plan')
-            end_date = getattr(profile, 'subscription_end', 'N/A')
-            subscription_info = f"Current Plan: {plan}, Expires: {end_date}"
+    user = request.user
+    if hasattr(user, 'chefprofile'):
+        profile_type = 'chef'
+        profile = user.chefprofile
+        is_verified = profile.is_verified_2
+    elif hasattr(user, 'employerprofile'):
+        profile_type = 'employer'
+        profile = user.employerprofile
+        is_verified = profile.is_verified_2
+    else:
+        profile_type = 'guest'
+        is_verified = False
 
-        # Full website context
-        context = f"""
+    subscription_info = ""
+    if profile_type != 'guest':
+        plan = getattr(profile, 'subscription_plan', 'No active plan')
+        end_date = getattr(profile, 'subscription_end', 'N/A')
+        subscription_info = f"Current Plan: {plan}, Expires: {end_date}"
+
+    system_context = f"""
 You are an AI assistant for Chef.com.ng, a platform for chefs and employers in Nigeria.
 The site offers Verified Handle subscriptions for chefs and employers.
 
@@ -3307,27 +3308,23 @@ User Info:
 Type: {profile_type}
 Verified: {is_verified}
 {subscription_info}
-
 Answer questions as accurately as possible based on this information.
 """
 
-        try:
-            response = openai.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": context},
-                    {"role": "user", "content": question}
-                ],
-                temperature=0.7,
-                max_tokens=300
-            )
-            answer = response.choices[0].message.content
-        except Exception as e:
-            return JsonResponse({"answer": f"Error contacting OpenAI API: {str(e)}"})
+    try:
+        # Correct Hugging Face chat usage
+        response = client.chat.model("meta-llama/Llama-2-7b-chat-hf")(
+            messages=[
+                {"role": "system", "content": system_context},
+                {"role": "user", "content": question}
+            ]
+        )
 
+        answer = response.get("generated_text", "No response from model.")
         return JsonResponse({"answer": answer})
-    else:
-        return JsonResponse({"answer": "Invalid request method. Use POST."})
+
+    except Exception as e:
+        return JsonResponse({"answer": f"Error contacting Hugging Face API: {str(e)}"})
 
 
 
