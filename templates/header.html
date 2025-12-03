@@ -58,7 +58,36 @@ ul, li { list-style: none !important; margin: 0; padding: 0; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Media Queries */
-@media (max-width: 600px) { .tagline { display: none !important; } .logoo { order: 1 !important; } .menu-extras { order: 2 !important; } }
+@media (max-width: 600px) { .tagline { display: none !important; } 
+.logoo { order: 1 !important; } 
+.menu-extras { order: 2 !important; }
+ header#topnav .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Mobile menu items spacing */
+    #mobileMenu ul li a {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    /* Mobile submenu spacing */
+    .submenu-mobile li a {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Logo spacing */
+    .logoimg {
+        margin-left: 0 !important; /* optional tweak */
+    }
+
+    /* Hamburger menu spacing */
+    #menu-toggle {
+        margin-right: 0 !important; /* keep some space if needed */
+    }
+ }
 @media (min-width: 601px) and (max-width: 1024px) { .tagline { display: none !important; } }
 
 /* ===================== AI SIDE BUTTON ===================== */

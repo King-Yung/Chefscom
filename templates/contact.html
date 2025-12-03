@@ -152,6 +152,19 @@ html, body {
             width: 90% !important;
         }
     }
+    .capts{
+        width: 110% !important;
+        padding: 0% !important;
+    }
+
+.caph5{
+    margin-top: 1rem !important;
+}
+
+.captcha{
+    width: 90% !important;
+}
+
 .cronts{
     width: 90% !important;
 
@@ -167,6 +180,35 @@ html, body {
     }
 }
 
+
+ header#topnav .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Mobile menu items spacing */
+    #mobileMenu ul li a {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    /* Mobile submenu spacing */
+    .submenu-mobile li a {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Logo spacing */
+    .logoimg {
+        margin-left: 0 !important; /* optional tweak */
+    }
+
+    /* Hamburger menu spacing */
+    #menu-toggle {
+        margin-right: 0 !important; /* keep some space if needed */
+    }
+
+    
 footer{
     .pitts{
       padding-inline: 1.5rem !important;
@@ -315,12 +357,12 @@ footer{
                                 <textarea name="message" rows="5" class="form-control resume aa"></textarea>
                             </div>
 
-                            <div class="form-section mt-3">
+                            <div class="form-section mt-3 capts">
                                 {{ form.captcha }}
                                 {% if form.captcha.errors %}
                                     <div class="text-danger small caph5">You must complete the CAPTCHA.</div>
                                 {% else %}
-                                    <h5 class="caph5">You must complete the <b>CAPTCHA</b> to continue.</h5>
+                                    <h5 class="caph5 ">You must complete the <b>CAPTCHA</b> to continue.</h5>
                                 {% endif %}
                             </div>
                         </div>
