@@ -154,8 +154,8 @@ $(document).ready(function() {
     }
 
     const wordCount = testimony.split(/\s+/).filter(w => w.length > 0).length;
-    if (wordCount > 50) {
-      alert(`Your testimony is too long. Maximum allowed is 50 words (currently ${wordCount}).`);
+    if (wordCount < 50) {
+      alert(`Your testimony must be up to 50 words. (currently ${wordCount}).`);
       return;
     }
 

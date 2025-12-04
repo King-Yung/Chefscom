@@ -49,6 +49,42 @@
       background: #f8f9fa;
       border-radius: 8px;
     }
+
+    /* Notification badge */
+.badge-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px 7px;
+    border-radius: 50%;
+}
+.btn-badge-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.badge-new {
+    background: red;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
   </style>
 </head>
 
@@ -102,11 +138,32 @@
         <hr class="my-4">
 
         <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
-          <a href="{% url 'my_jobs' %}" class="btn btn-outline-primary">My Jobs</a>
-          <a href="{% url 'job_alerts' %}" class="btn btn-outline-success">Job Alerts</a>
-          <a href="{% url 'chef_settings' %}" class="btn btn-outline-info">Settings</a>
-          <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
+      <!-- My Jobs with Badge -->
+      <div class="btn-badge-wrapper">
+            <a href="{% url 'my_jobs' %}" class="btn btn-outline-primary">
+                My Jobs
+            </a>
+            {% if my_jobs_count > 0 %}
+            <span class="badge-new">{{ my_jobs_count }}</span>
+            {% endif %}
         </div>
+
+        <!-- Job Alerts with Badge -->
+        <div class="btn-badge-wrapper">
+            <a href="{% url 'job_alerts' %}" class="btn btn-outline-success">
+                Job Alerts
+            </a>
+            {% if job_alerts_count > 0 %}
+            <span class="badge-new">{{ job_alerts_count }}</span>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'chef_settings' %}" class="btn btn-outline-info">Settings</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
+      </div>
+
       </div>
     </div>
   </div>

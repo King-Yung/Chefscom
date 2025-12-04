@@ -673,6 +673,8 @@ class JobApplication(models.Model):
     employer_testimony = models.TextField(null=True, blank=True)
     chef_testimony_date = models.DateTimeField(null=True, blank=True)
     employer_testimony_date = models.DateTimeField(null=True, blank=True)
+    is_viewed = models.BooleanField(default=False, null=True, blank=True)
+
     
 
     def __str__(self):

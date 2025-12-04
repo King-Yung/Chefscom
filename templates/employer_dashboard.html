@@ -32,6 +32,38 @@
   cursor: pointer;
 }
 
+.badge-counter {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    padding: 3px 7px;
+    font-size: 0.7rem;
+    border-radius: 50%;
+}
+.btn-badge-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.badge-new {
+    background: red;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
 .profile-pic-wrapper:hover .edit-overlay {
   opacity: 1;
 }
@@ -110,8 +142,27 @@
         <hr class="my-4">
 
         <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
-          <a href="{% url 'applied' %}" class="btn btn-outline-primary">Vacancies</a>
-          <a href="{% url 'manage_chef' %}" class="btn btn-outline-success">Manage Chefs</a>
+          <!-- Vacancies with badge -->
+          <div class="btn-badge-wrapper">
+            <a href="{% url 'applied' %}" class="btn btn-outline-primary">
+              Vacancies
+            </a>
+             {% if new_applications_count > 0 %}
+                  <span class="badge-new">{{ new_applications_count }}</span>
+             {% endif %}
+          </div>
+
+
+          <!-- Manage chefs with badge -->
+          <div class="btn-badge-wrapper">
+            <a href="{% url 'manage_chef' %}" class="btn btn-outline-success">
+              Manage Chefs
+            </a>
+            {% if manage_chefs_count > 0 %}
+            <span class=" badge-new">{{ manage_chefs_count }}</span>
+            {% endif %}
+          </div>
+
           <a href="{% url 'employer_settings' %}" class="btn btn-outline-info">Settings</a>
           <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </div>

@@ -2401,20 +2401,36 @@ def complete_profile(request):
 def chef_dashboard(request):
     chef, created = ChefProfile.objects.get_or_create(user=request.user)
 
-    # ✅ Handle profile picture upload
+    # profile picture upload
     if request.method == "POST" and 'profile_picture' in request.FILES:
         chef.profile_picture = request.FILES['profile_picture']
         chef.save()
-        return redirect('chef_dashboard')  # reload after upload
+        return redirect('chef_dashboard')
 
-    # ✅ Get job engagements for the logged-in user
-    job_engagements = JobEngagement.objects.filter(candidate=request.user).order_by('-created_at')
+    # job engagements
+    job_engagements = JobEngagement.objects.filter(
+        candidate=request.user
+    ).order_by('-created_at')
+
+    # ✅ My Jobs Count (job applications submitted by chef)
+    my_jobs_count = JobApplication.objects.filter(
+        chef=chef.user,
+        status__in=["Pending"]  
+        # 🔥 'Rejected' normally shouldn't be counted as active
+    ).count()
+
+    # ✅ Job Alerts Count (engagements where chef is candidate)
+    job_alerts_count = JobEngagement.objects.filter(
+        candidate=request.user,
+        status__in=["pending"]
+    ).count()
 
     return render(request, "chef_dashboard.html", {
         "chef": chef,
-        "job_engagements": job_engagements
+        "job_engagements": job_engagements,
+        "my_jobs_count": my_jobs_count,
+        "job_alerts_count": job_alerts_count,
     })
-
 
 
 
@@ -2427,21 +2443,46 @@ def employer_dashboard(request):
         messages.error(request, "Access denied. You are not registered as an employer.")
         return redirect("home")
 
-    # ✅ Handle profile picture upload
+    # Upload Profile Picture
     if request.method == "POST" and request.FILES.get("profile_picture"):
         employer_profile.profile_picture = request.FILES["profile_picture"]
         employer_profile.save()
         messages.success(request, "Profile picture updated successfully!")
-        return redirect("employer_dashboard")  # Refresh to show the new image
+        return redirect("employer_dashboard")
 
     engagements = JobEngagement.objects.filter(
         employer=request.user
-    ).select_related("candidate__user").order_by("-created_at")
+    ).order_by("-created_at")
+
+    # Vacancies - still using JobApplication
+    vacancies_count = JobApplication.objects.filter(
+        employer=employer_profile.user,
+        status__in=["Pending"]  # this is correct for JobApplication
+    ).count()
+
+    # FIXED — Manage chefs counter
+    manage_chefs_count = JobEngagement.objects.filter(
+        employer=employer_profile.user,
+        status__in=["pending"]
+    ).count()
+
+    # New applications indicator (JobApplication uses capitalized statuses)
+    new_applications_count = JobApplication.objects.filter(
+        employer=employer_profile.user,
+        is_viewed=False,
+        status__in=["Pending"]
+    ).count()
 
     return render(request, "employer_dashboard.html", {
         "employer": employer_profile,
         "engagements": engagements,
+        "vacancies_count": vacancies_count,
+        "manage_chefs_count": manage_chefs_count,
+        "new_applications_count": new_applications_count,
     })
+
+
+
 
 
 
