@@ -3288,84 +3288,103 @@ class reset_password_view(PasswordResetView):
 
 
 
-client = InferenceClient(token=os.getenv("HF_API_TOKEN"))
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY")
+
+
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY")
+
 
 @csrf_exempt
 def ask_ai(request):
     if request.method != "POST":
-        return JsonResponse({"answer": "Invalid request method. Use POST."})
+        return JsonResponse({"CJA AI": "Invalid request method. Use POST."})
 
+    # Parse request body
     try:
         body = json.loads(request.body)
     except json.JSONDecodeError:
-        return JsonResponse({"answer": "Invalid JSON."})
+        return JsonResponse({"CJA AI": "Invalid JSON."})
 
     question = body.get("question")
     if not question:
-        return JsonResponse({"answer": "Please ask a question."})
+        return JsonResponse({"CJA AI": "Please ask a question."})
 
+    # Determine user type and subscription info
     user = request.user
-    if hasattr(user, 'chefprofile'):
-        profile_type = 'chef'
+    if hasattr(user, "chefprofile"):
+        profile_type = "chef"
         profile = user.chefprofile
         is_verified = profile.is_verified_2
-    elif hasattr(user, 'employerprofile'):
-        profile_type = 'employer'
+    elif hasattr(user, "employerprofile"):
+        profile_type = "employer"
         profile = user.employerprofile
         is_verified = profile.is_verified_2
     else:
-        profile_type = 'guest'
+        profile_type = "guest"
+        profile = None
         is_verified = False
 
     subscription_info = ""
-    if profile_type != 'guest':
-        plan = getattr(profile, 'subscription_plan', 'No active plan')
-        end_date = getattr(profile, 'subscription_end', 'N/A')
+    if profile_type != "guest":
+        plan = getattr(profile, "subscription_plan", "No active plan")
+        end_date = getattr(profile, "subscription_end", "N/A")
         subscription_info = f"Current Plan: {plan}, Expires: {end_date}"
 
+    # System prompt for AI
     system_context = f"""
-You are an AI assistant for Chef.com.ng, a platform for chefs and employers in Nigeria.
-The site offers Verified Handle subscriptions for chefs and employers.
+You are CJA AI, a professional assistant for Chef.com.ng.
+Respond in clean, professional English. Use signs and symbols (like ₦) when necessary.
+Use full sentences and numbered lists. Tailor responses to the user's role.
 
-CHEF / CANDIDATE VERIFIED HANDLE
-- Subscription Options:
-  * Monthly: ₦2,000
-  * 3 Months: ₦5,000
-  * 6 Months: ₦10,000
-  * 12 Months: ₦19,500
-- Benefits: verified badge, priority job matching, visibility boost, CJA training & events, Top Verified Chefs directory.
-
-EMPLOYER / BRAND VERIFIED HANDLE
-- Subscription Options:
-  * Monthly: ₦5,000
-  * 3 Months: ₦13,500
-  * 6 Months: ₦25,000
-  * 12 Months: ₦47,500
-- Benefits: verified badge, access to verified chef database, priority listing of vacancies, recruitment support, discounted commissions, partner spotlight.
-
-Payment methods: Paystack or Flutterwave.
-
-User Info:
-Type: {profile_type}
+User type: {profile_type}
 Verified: {is_verified}
 {subscription_info}
-Answer questions as accurately as possible based on this information.
 """
 
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "model": "tngtech/deepseek-r1t2-chimera:free",
+        "messages": [
+            {"role": "system", "content": system_context},
+            {"role": "user", "content": question},
+        ],
+        "temperature": 0.5,
+        "max_tokens": 400,
+    }
+
     try:
-        # Correct Hugging Face chat usage
-        response = client.chat.model("meta-llama/Llama-2-7b-chat-hf")(
-            messages=[
-                {"role": "system", "content": system_context},
-                {"role": "user", "content": question}
-            ]
+        response = requests.post(OPENROUTER_URL, json=payload, headers=headers)
+        data = response.json()
+
+        if "choices" not in data or not data["choices"]:
+            return JsonResponse({"CJA AI": "The AI service is currently unavailable. Please try again soon."})
+
+        # Clean AI reply: replace escaped unicode, remove unwanted formatting
+        reply = data["choices"][0]["message"]["content"]
+        reply_clean = (
+            reply
+            .replace("\\n", " ")
+            .replace("**", "")
+            .replace("\u2019", "'")
+            .replace("\u20a6", "₦")
+            .replace("\n", "")
+            .strip()
         )
 
-        answer = response.get("generated_text", "No response from model.")
-        return JsonResponse({"answer": answer})
+        # Ensure proper JSON encoding with UTF-8 to keep ₦ sign
+        return JsonResponse({"CJA AI": reply_clean}, json_dumps_params={'ensure_ascii': False})
 
     except Exception as e:
-        return JsonResponse({"answer": f"Error contacting Hugging Face API: {str(e)}"})
+        return JsonResponse({"CJA AI": f"Error contacting OpenRouter API: {str(e)}"}, json_dumps_params={'ensure_ascii': False})
+
+
+
 
 
 
@@ -3374,6 +3393,7 @@ def success_stories(request):
     testimonies = TestimonyLog.objects.select_related('user').all().order_by('-created_at')
 
     return render(request, "home.html", {"testimonies": testimonies})
+
 
 
 def custom_404(request, exception):

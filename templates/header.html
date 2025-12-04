@@ -298,7 +298,7 @@ window.addEventListener('click', function(e) {
     }
 });
 
-/* CJA AI Chat with streaming */
+/* CJA AI Chat with streaming and typing indicator */
 document.getElementById('cja-ai-send').addEventListener('click', async () => {
     const input = document.getElementById('cja-ai-input');
     const messageContainer = document.getElementById('cja-ai-messages');
@@ -315,11 +315,13 @@ document.getElementById('cja-ai-send').addEventListener('click', async () => {
     messageContainer.scrollTop = messageContainer.scrollHeight;
     input.value = '';
 
-    // AI message container
+    // AI message container with typing indicator
     const aiMsg = document.createElement('div');
     aiMsg.style.textAlign = 'left';
     aiMsg.style.color = 'green';
+    aiMsg.innerHTML = `<i>CJA AI is typing...</i>`;
     messageContainer.appendChild(aiMsg);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 
     try {
         const response = await fetch("{% url 'ask_ai' %}", {
@@ -331,15 +333,30 @@ document.getElementById('cja-ai-send').addEventListener('click', async () => {
             body: JSON.stringify({ question })
         });
 
-        // Stream reading
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let done = false;
+        let fullText = "";
+
+        // Remove "typing..." once streaming starts
+        aiMsg.innerHTML = '';
+
         while(!done) {
             const { value, done: doneReading } = await reader.read();
             done = doneReading;
             if(value) {
-                aiMsg.innerHTML += decoder.decode(value);
+                const chunk = decoder.decode(value, { stream: true });
+                fullText += chunk;
+                
+                // Optional: parse JSON if backend returns {"CJA AI": "..."} in chunks
+                try {
+                    const jsonChunk = JSON.parse(fullText);
+                    aiMsg.textContent = jsonChunk["CJA AI"];
+                } catch {
+                    // If incomplete JSON, just append chunk
+                    aiMsg.textContent = fullText.replace(/[\#{\}]/g, '').replace(/\\n/g, ' ');
+                }
+
                 messageContainer.scrollTop = messageContainer.scrollHeight;
             }
         }
@@ -355,6 +372,7 @@ document.getElementById('cja-ai-input').addEventListener('keypress', function(e)
     if(e.key === 'Enter'){ document.getElementById('cja-ai-send').click(); }
 });
 </script>
+
 
 </body>
 </html>
